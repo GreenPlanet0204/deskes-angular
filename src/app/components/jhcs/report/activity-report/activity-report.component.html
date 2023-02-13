@@ -1,0 +1,48 @@
+<div class="formContainer">
+  <div fxLayout="row" fxLayoutAlign="left left">
+    <h1>JHCS: Activity Report</h1>
+  </div>
+  <div>
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <h2 style="margin-bottom: 42px;">Activity Summary For: {{getDate()}}</h2>
+    </div>
+    <div fxLayout="row" fxLayoutGap="15px">
+      <table mat-table fxFlexFill [dataSource]="dataSource" fxFlex="49">
+        <ng-container matColumnDef="summary">
+          <th mat-header-cell *matHeaderCellDef> JHCS Summary </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="total">
+          <th mat-header-cell *matHeaderCellDef> Total </th>
+          <td mat-cell *matCellDef="let element"> {{element.total}} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="edited">
+          <th mat-header-cell *matHeaderCellDef> Edited </th>
+          <td mat-cell *matCellDef="let element"> {{element.edited}} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="added">
+          <th mat-header-cell *matHeaderCellDef> Added </th>
+          <td mat-cell *matCellDef="let element"> {{element.added}} </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <div fxFlex="49" *ngIf="flags != null">
+        <canvas baseChart
+          [data]="pieChartData"
+          [type]="pieChartType"
+          [options]="pieChartOptions"
+          [plugins]="pieChartPlugins">
+        </canvas>
+      </div>
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+  
+  <jhcs-activity-table></jhcs-activity-table>
+</div>

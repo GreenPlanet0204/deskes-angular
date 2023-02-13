@@ -1,0 +1,62 @@
+<!-- Toolbar -->
+<mat-toolbar [sidenav]="leftSidenav" #topToolbar *ngIf="showMenu">
+  <mat-toolbar-row *ngIf="activeBanner" [style.backgroundColor]="getBannerBackgroundColor()" class="top-banner">
+    <span [style.color]="getBannerColor()">{{getBannerText() }}</span>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row class="main-toolbar">
+    <!-- Left side logos -->
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+      <img alt="DDESB Logo" src="assets/ddesb-logo.png" fxFlex/>
+      <img alt="DESKES Logo" src="assets/depsec-logo.png" fxFlex/>
+    </div>
+    <div class="center-space" fxFlexAlign="center center" fxLayout="row" fxLayoutAlign="center center">
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
+      <!-- User Account -->
+      <button [matMenuTriggerFor]="menuUserAccount" aria-label="User Account" mat-icon-button>
+        <mat-icon>account_circle</mat-icon>
+        <!--
+        <span
+          style="padding: 10px">{{getUserFullName()}}</span>
+          -->
+      </button>
+      <mat-menu #menuUserAccount="matMenu" xPosition="before">
+        <div class="user-name-div">
+          <span
+            style="padding: 10px">{{getUserFullName()}}</span>
+        </div>
+        <button mat-menu-item>
+          <mat-icon>settings</mat-icon>
+          <span>Application Settings</span>
+        </button>
+        <button mat-menu-item (click)="manageUserAccount()">
+          <mat-icon>admin_panel_settings</mat-icon>
+          <span>Manage Account</span>
+        </button>
+        <button mat-menu-item (click)="logOut()">
+          <mat-icon>logout</mat-icon>
+          <span>Log Out</span>
+        </button>
+      </mat-menu>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container [ngStyle]="getMainContainerHeightStyle()" class="sidenav-container">
+  <mat-sidenav #leftSidenav mode="side" opened>
+    <app-left-menu *ngIf="showMenu"></app-left-menu>
+  </mat-sidenav>
+  <mat-sidenav-content [@onMainContentChange]="onSideNavChange ? 'open': 'close'">
+    <div class="main-container">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<mat-toolbar #bottomToolbar *ngIf="showMenu">
+  <mat-toolbar-row *ngIf="activeBanner" [style.backgroundColor]="getBannerBackgroundColor()"
+                   class="bottom-banner center">
+    <span [style.color]="getBannerColor()">{{getBannerText() }}</span>
+  </mat-toolbar-row>
+</mat-toolbar>

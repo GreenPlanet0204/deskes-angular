@@ -1,0 +1,141 @@
+.container {
+    padding: 0 20%;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.advanced-search-title {
+  padding-bottom: 30px;
+}
+
+.advanced-search-text {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}
+
+.search-result {
+    margin-top: 20px;
+}
+
+.center {
+    /* display: flex; */
+    /* flex-direction: row; */
+    text-align: center;
+}
+
+.formContainer {
+    position: relative;
+    max-width: 50rem;
+    margin: 0 auto;
+    /*background: #f5f5f5;*/
+    background: #ffffff;
+    width: 100%;
+    padding: 1rem 3rem 0;
+    border-radius: 1px;
+    padding-bottom: 25px;
+}
+
+.formContainer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+    -webkit-transform: scale(0.98);
+    transform: scale(0.98);
+    -webkit-transition: -webkit-transform 0.28s ease-in-out;
+    transition: -webkit-transform 0.28s ease-in-out;
+    transition: transform 0.28s ease-in-out;
+    transition: transform 0.28s ease-in-out, -webkit-transform 0.28s ease-in-out;
+    z-index: -1;
+}
+
+.formContainer:hover::before {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+    flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.example-headers-align .mat-form-field+.mat-form-field {
+    margin-left: 8px;
+}
+
+#logo-color {
+    fill: #505db2;
+    width: 35px;
+    height: 35px;
+    padding-bottom: 5px;
+}
+
+.button-color-blue {
+    color: #ffffff;
+    background-color: #505db2;
+}
+
+.button-color-red {
+    color: #ffffff;
+    background-color: #c62828;
+}
+
+.icon-color-red {
+    color: #c62828;
+}
+
+.pad-the-bottom {
+    padding-bottom: 10px;
+}
+
+.no-records {
+    margin-top: 1.5rem;
+    opacity: 0.7;
+    font-size: 1.05rem;
+}
+
+
+/* Border */
+
+
+/*.mat-form-field-appearance-outline .mat-form-field-outline {*/
+
+
+/*  color: white;*/
+
+
+/*}*/
+
+
+/* Font color */
+
+
+/*input.mat-input-element {*/
+
+
+/*  color: white;*/
+
+
+/*}*/
+
+
+/*field back ground*/
+
+
+/*.mat-form-field-infix {*/
+
+
+/*  border-top: 0.84375em solid white;*/
+
+
+/*}*/

@@ -1,0 +1,68 @@
+<div class="formContainer">
+  <div fxLayout="row" fxLayoutAlign="left left">
+    <h1>JHCS: Record Approval Status</h1>
+  </div>
+  <div style="margin-top: 40px; padding-top: 20px;">
+    <div fxLayout="row">
+      <mat-table fxFlex="100%" [dataSource]="dataSource1">
+        <ng-container matColumnDef="type">
+          <mat-header-cell *matHeaderCellDef> Action Type</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{element.type}}
+          </mat-cell>
+        </ng-container>
+      
+        <ng-container matColumnDef="army">
+          <mat-header-cell *matHeaderCellDef> Army </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <a href="#" *ngIf="element.linkable; else displayArmy"
+              (click)="gotoDetails($event, element)">{{element.army}}</a>
+            <ng-template #displayArmy>
+              {{element.army}}
+            </ng-template>
+          </mat-cell>
+        </ng-container>
+      
+        <ng-container matColumnDef="navy">
+          <mat-header-cell *matHeaderCellDef> Navy </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <a href="#" *ngIf="element.linkable; else displayNavy"
+              (click)="gotoDetails($event, element)">{{element.navy}}</a>
+            <ng-template #displayNavy>
+              {{element.navy}}
+            </ng-template>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="airforce">
+          <mat-header-cell *matHeaderCellDef> AirForce </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <a href="#" *ngIf="element.linkable; else displayAf"
+              (click)="gotoDetails($event, element)">{{element.airforce}}</a>
+            <ng-template #displayAf>
+              {{element.airforce}}
+            </ng-template>
+          </mat-cell>
+          <mat-cell *matCellDef="let element"> {{element.airforce}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="total">
+          <mat-header-cell *matHeaderCellDef> Total </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <a href="#" *ngIf="element.linkable; else displayTotal"
+              (click)="gotoDetails($event, element)">{{element.total}}</a>
+            <ng-template #displayTotal>
+              {{element.total}}
+            </ng-template>
+          </mat-cell>
+        </ng-container>
+      
+        <mat-header-row *matHeaderRowDef="displayedColumns1"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns1"></mat-row>
+      </mat-table>      
+    </div>
+  </div>
+  <div style="margin-top: 40px; padding-top: 20px;">
+ 
+  </div>
+</div>

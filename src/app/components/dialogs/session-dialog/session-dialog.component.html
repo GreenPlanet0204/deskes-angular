@@ -1,0 +1,20 @@
+<div style="padding: 24px;" (click)="dialogRef.close({action: 'reset'});">
+  <div style="text-align: center">
+    <span style="display: inline; text-align: center; font-size: x-large"><mat-icon>warning</mat-icon> Session Expiring</span>
+    <br />
+  </div>
+
+  <mat-dialog-content style="text-align: center;">
+    <div class="message">
+      <p>You have been idle for a period of time and this may cause your session to expire.</p>
+      <p>If you are idle for more than <span style="font-size: large; color: yellow"><b>{{restTime}} minutes</b></span>, you will be logged out and potentially lose your
+        work.</p>
+    </div>
+    <div class="action-panel">
+      <button type="button" color="primary" mat-raised-button (click)="dialogRef.close({action: 'reset'})">Stay Active</button>
+      <!--
+      <button type="button" color="primary" mat-button (click)="dialogRef.close({action: 'stop'})">No</button>
+      -->
+    </div>
+  </mat-dialog-content>
+</div>

@@ -1,0 +1,60 @@
+.formContainer {
+  position: relative;
+  max-width: 70rem;
+  margin: 5rem auto;
+  background: #fff;
+  width: 100%;
+  padding: 1rem 3rem 0;
+  border-radius: 1px;
+  padding-bottom: 50px;
+}
+
+.formContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+  -webkit-transform: scale(0.98);
+  transform: scale(0.98);
+  -webkit-transition: -webkit-transform 0.28s ease-in-out;
+  transition: -webkit-transform 0.28s ease-in-out;
+  transition: transform 0.28s ease-in-out;
+  transition: transform 0.28s ease-in-out, -webkit-transform 0.28s ease-in-out;
+  z-index: -1;
+}
+
+.formContainer:hover::before {
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+
+.button-submit {
+  background-color: #505db2;
+}
+.button-submit {
+  background-color: #505db2;
+}
+
+
+.mat-header-cell {
+  background: #505db2;
+  color:  white;
+  font-size: 16.5px;
+}
+
+.mat-sort-header-arrow {
+  color: #ffffff !important;
+  /*opacity: 1 !important;*/
+}
+
+::ng-deep .mat-sort-header-arrow {
+  color: #ffffff;
+}
+
+.padding-bottom{
+  padding-bottom: 20px;
+}
+

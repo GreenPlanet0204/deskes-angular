@@ -1,0 +1,197 @@
+<!-- Toolbar -->
+<mat-toolbar [sidenav]="leftSidenav" #topToolbar *ngIf="showMenu">
+  <mat-toolbar-row *ngIf="activeBanner" [style.backgroundColor]="getBannerBackgroundColor()" class="top-banner">
+    <span [style.color]="getBannerColor()">{{getBannerText() }}</span>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row class="main-toolbar">
+    <!-- Left side logos -->
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+      <img alt="DDESB Logo" src="assets/ddesb-logo.png" fxFlex/>
+      <img alt="DESKES Logo" src="assets/depsec-logo.png" fxFlex/>
+    </div>
+    <div class="searchbar" fxFlexAlign="center center" fxLayout="row" fxLayoutAlign="center center">
+      <app-search-bar (itemClicked)="viewItem($event)" fxFlex="40" ></app-search-bar>
+    </div>
+
+    <!-- Nav Tools -->
+    <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
+      <button [matMenuTriggerFor]="appMenu" aria-label="JHCS Tools" mat-icon-button>
+        <mat-icon>menu</mat-icon>
+      </button>
+      <mat-menu #appMenu="matMenu" xPosition="before">
+        <button mat-menu-item [matMenuTriggerFor]="reportsMenu" *ngIf="userHasHcRoleOrHigher()">
+          <mat-icon>library_books</mat-icon>
+          <span>Reports</span>
+        </button>
+        <button mat-menu-item [matMenuTriggerFor]="downloadsMenu">
+          <mat-icon>cloud_download</mat-icon>
+          <span>Downloads</span>
+        </button>
+        <button mat-menu-item [matMenuTriggerFor]="adminMenu" *ngIf="userHasHcEditRoleOrHigher()" >
+          <mat-icon>admin_panel_settings</mat-icon>
+          <span>Admin</span>
+        </button>
+        <button mat-menu-item [matMenuTriggerFor]="helpMenu">
+          <mat-icon>help</mat-icon>
+          <span>Help</span>
+        </button>
+      </mat-menu>
+
+      <!-- Reports submenu -->
+      <mat-menu #reportsMenu="matMenu" xPosition="before">
+        <button mat-menu-item (click)="goToActivityReports()">
+          <mat-icon>donut_small</mat-icon>
+          <span>Activity Reports</span>
+        </button>
+
+        <button mat-menu-item (click)="goToDuplicateNSNReport()">
+          <mat-icon>filter_2</mat-icon>
+          <span>Duplicate NSNs</span>
+        </button>
+        <button mat-menu-item (click)="goToMissingDotLetters()">
+          <mat-icon>report_problem</mat-icon>
+          <span>Missing DOT Letters</span>
+        </button>
+        <button mat-menu-item (click)="goToMissingTechNames()">
+          <mat-icon>report_problem</mat-icon>
+          <span>Missing Tech Names</span>
+        </button>
+        <button mat-menu-item (click)="goToHazClassMettings()">
+          <mat-icon>people</mat-icon>
+          <span>Haz Class Meetings</span>
+        </button>
+        <button mat-menu-item (click)="goToRecordApprovalStatus()">
+          <mat-icon>done_all</mat-icon>
+          <span>Record Approval Status</span>
+        </button>
+        <button mat-menu-item (click)="goToJhcsStats()">
+          <mat-icon>assessment</mat-icon>
+          <span>JHCS Stats</span>
+        </button>
+      </mat-menu>
+
+      <!-- Downloads submenu -->
+      <mat-menu #downloadsMenu="matMenu" xPosition="before">
+        <button mat-menu-item>
+          <mat-icon>archive</mat-icon>
+          <span>Download Zip</span>
+        </button>
+      </mat-menu>
+
+      <!-- Admin submenu -->
+      <mat-menu #adminMenu="matMenu" xPosition="before">
+        <button mat-menu-item *ngIf="userHasAdminRole()">
+          <mat-icon>account_circle</mat-icon>
+          <span>Accounts</span>
+        </button>
+        <button mat-menu-item [matMenuTriggerFor]="maintenanceMenu">
+          <mat-icon>build</mat-icon>
+          <span>Maintenance</span>
+        </button>
+      </mat-menu>
+
+      <mat-menu #maintenanceMenu="matMenu" xPosition="before">
+        <button mat-menu-item (click)="goToUnNumberTable()">
+          <mat-icon>public</mat-icon>
+          <span>UN Numbers</span>
+        </button>
+        <button mat-menu-item (click)="goToHazardSymbol()">
+          <mat-icon>g_translate</mat-icon>
+          <span>Hazard Symbols</span>
+        </button>
+        <button mat-menu-item (click)="goToNsnAssociation()">
+          <mat-icon>join_right</mat-icon>
+          <span>NSN Association</span>
+        </button>
+        <button mat-menu-item (click)="goToManageDuplicates()">
+          <mat-icon>search</mat-icon>
+          <span>Duplicate NSN Lookup</span>
+        </button>
+      </mat-menu>
+
+      <mat-menu #helpMenu="matMenu" xPosition="before">
+        <button mat-menu-item (click)="goToHelpDefinitions()">
+          <mat-icon>view_headline</mat-icon>
+          <span>JHCS Definitions</span>
+        </button>
+        <button mat-menu-item #adminDialogTrigger (click)="openAdminDialog()">
+          <mat-icon>email</mat-icon>
+          <span>Admin Contact</span>
+        </button>
+      </mat-menu>
+
+      <!-- Notifications menu -->
+      <button [matMenuTriggerFor]="menuNotifications" aria-label="Notifications" mat-icon-button>
+        <mat-icon>notifications_active</mat-icon>
+      </button>
+      <mat-menu #menuNotifications="matMenu">
+        <button mat-menu-item>
+          <mat-icon>event_note</mat-icon>
+          <span>Application Notification 1</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>event_note</mat-icon>
+          <span>Application Notification 2</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>event_note</mat-icon>
+          <span>Application Notification 3</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>event_note</mat-icon>
+          <span>Application Notification 4</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>clear_all</mat-icon>
+          <span>Clear All Notifications</span>
+        </button>
+      </mat-menu>
+
+      <!-- User Account -->
+      <button [matMenuTriggerFor]="menuUserAccount" aria-label="User Account" mat-icon-button>
+        <mat-icon>account_circle</mat-icon>
+        <!--
+        <span
+          style="padding: 10px">{{getUserFullName()}}</span>
+          -->
+      </button>
+      <mat-menu #menuUserAccount="matMenu" xPosition="before">
+        <div class="user-name-div">
+          <span
+            style="padding: 10px">{{getUserFullName()}}</span>
+        </div>
+        <button mat-menu-item>
+          <mat-icon>settings</mat-icon>
+          <span>Application Settings</span>
+        </button>
+        <button mat-menu-item (click)="manageUserAccount()">
+          <mat-icon>admin_panel_settings</mat-icon>
+          <span>Manage Account</span>
+        </button>
+        <button mat-menu-item (click)="logOut()">
+          <mat-icon>logout</mat-icon>
+          <span>Log Out</span>
+        </button>
+      </mat-menu>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container [ngStyle]="getMainContainerHeightStyle()" class="sidenav-container">
+  <mat-sidenav #leftSidenav mode="side" opened>
+    <app-left-menu *ngIf="showMenu"></app-left-menu>
+  </mat-sidenav>
+  <mat-sidenav-content [@onMainContentChange]="onSideNavChange ? 'open': 'close'">
+    <div class="main-container">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<mat-toolbar #bottomToolbar *ngIf="showMenu">
+  <mat-toolbar-row *ngIf="activeBanner" [style.backgroundColor]="getBannerBackgroundColor()"
+                   class="bottom-banner center">
+    <span [style.color]="getBannerColor()">{{getBannerText() }}</span>
+  </mat-toolbar-row>
+</mat-toolbar>

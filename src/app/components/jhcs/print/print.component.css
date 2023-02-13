@@ -1,0 +1,131 @@
+.container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+@media (min-width: 768px) {
+    .container {
+        width: 750px;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        width: 970px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        width: 1170px;
+    }
+}
+
+.fill {
+    height: 100%;
+    position: relative;
+}
+
+.my-2 {
+    margin-bottom: 1rem;
+}
+
+.unclass {
+    text-align: center;
+}
+
+.spacer {
+    height: 30px;
+}
+
+body {
+    padding: 0px;
+}
+
+.result-table {
+    width: 100%;
+    font-size: 8pt;
+    page-break-after: always;
+    border-collapse: collapse;
+}
+
+span.header {
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+    margin-bottom: 30px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.result-label-left {
+    text-align: left;
+    white-space: nowrap;
+    padding: 4px;
+}
+
+.result-label-right {
+    text-align: right;
+    white-space: nowrap;
+    padding: 4px;
+}
+
+.border-right {
+    border-right: 1px solid black;
+}
+
+.result {
+    text-align: left;
+    padding: 4px;
+}
+
+.padded-row {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+}
+
+.unclass-row {
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+}
+
+.result-table>tr td {
+    width: 16%;
+    vertical-align: top;
+}
+
+/* table:last-of-type {
+    page-break-after: avoid;
+} */
+
+table.result-table tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+@media print {
+    .container {
+        margin-right: 0;
+        margin-left: 0;
+        overflow: visible!important;
+    }
+
+    .fill {
+        width: 100%;
+    }
+
+    .print-me {
+        border-collapse: collapse;
+        overflow: visible!important;
+    }
+
+    .result-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+}

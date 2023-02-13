@@ -1,0 +1,23 @@
+<div class="formContainer">
+  <div fxLayout="row" fxLayoutAlign="left left">
+    <h1>JHCS: Haz Class Meetings</h1>
+  </div>
+  
+  <div fxLayout="row">
+    <button mat-raised-button class="button-submit" type="button" (click)="createNewMetting()">
+      Create New
+    </button>
+  </div>
+  <div>
+    <jhcs-export-table
+      [loading]="loading"
+      [columns]="itemColumns"
+      [userData]="dataSource"
+      [totalCount]="totalDataCount"
+      [filterable]="true"
+      (updatePage)="updatePage($event)"
+      (actionEvent)="editMeeting($event)"
+    >
+    </jhcs-export-table>
+  </div>
+</div>

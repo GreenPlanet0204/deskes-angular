@@ -1,0 +1,52 @@
+<div class="dialog">
+  <h2 mat-dialog-title>{{editMode? "Edit" : "Add"}} Meeting</h2>
+
+  <mat-dialog-content class="mat-typography" [formGroup]="form">
+    <div fxLayout="row" fxLayoutGap="15px">
+      <mat-form-field appearance="fill" fxFlex>
+        <mat-label>Start Date</mat-label>
+        <input matInput [matDatepicker]="picker1" value="date" formControlName="startDate">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" fxFlex>
+        <mat-label>End Date</mat-label>
+        <input matInput [matDatepicker]="picker2" value="date" formControlName="endDate">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row">
+      <mat-form-field appearance="fill" fxFlex>
+        <mat-label>Title</mat-label>
+        <textarea matInput rows="4" maxlength="2000" formControlName="title" maxlength="2000"></textarea>
+        <mat-icon matSuffix>drive_file_rename_outline</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row">
+      <mat-form-field appearance="fill" fxFlex>
+        <mat-label>Location</mat-label>
+        <input matInput formControlName="location">
+        <mat-icon matSuffix>rate_review</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row">
+      <mat-form-field appearance="fill" fxFlex>
+        <mat-label>File Upload</mat-label>
+        <input matInput formControlName="filename" readonly>
+        <mat-icon matSuffix>file_upload</mat-icon>
+        <input type="file" class="uploadFile" name="dotBlobFile" (change)="uploadFile($event)"
+            accept=".txt,.doc,.docx,.pdf" />
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-raised-button class="save-button" type="button" (click)="submit()" cdkFocusInitial>Save</button>
+    <button mat-button mat-dialog-close>Cancel</button>
+  </mat-dialog-actions>
+</div>

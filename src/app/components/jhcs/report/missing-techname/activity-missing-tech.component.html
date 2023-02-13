@@ -1,0 +1,17 @@
+<div class="formContainer">
+  <div fxLayout="row" fxLayoutAlign="left left">
+    <h1>JHCS: Missing Tech Names</h1>
+  </div>
+  
+  <div>
+    <jhcs-export-table
+      [loading]="loading"
+      [columns]="itemColumns"
+      [userData]="dataSource"
+      [totalCount]="totalDataCount"
+      [filterable]="true"
+      (updatePage)="updatePage($event)"
+    >
+    </jhcs-export-table>
+  </div>
+</div>

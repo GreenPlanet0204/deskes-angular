@@ -1,0 +1,48 @@
+<div class="search-table">
+<table mat-table fxFlexFill [dataSource]="dataSource">
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> ID </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="dodic">
+    <th mat-header-cell *matHeaderCellDef> DODIC </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="nsn">
+    <th mat-header-cell *matHeaderCellDef> NSN </th>
+    <td mat-cell *matCellDef="let element"> {{element.nsn}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="nomenclature">
+    <th mat-header-cell *matHeaderCellDef> Nomenclature </th>
+    <td mat-cell *matCellDef="let element"> {{element.nomenclature}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="newLbs">
+    <th mat-header-cell *matHeaderCellDef> N.E.W. Lbs </th>
+    <td mat-cell *matCellDef="let element"> {{element.newLbs}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="dodHc">
+    <th mat-header-cell *matHeaderCellDef> HC </th>
+    <td mat-cell *matCellDef="let element"> {{element.dodHc}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef> </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button (click)="viewItem(element)"><mat-icon aria-hidden="false" aria-label="View">visibility</mat-icon></button>
+      <button mat-icon-button (click)="editItem(element)"><mat-icon aria-hidden="false" aria-label="Edit">edit_note</mat-icon></button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+</div>

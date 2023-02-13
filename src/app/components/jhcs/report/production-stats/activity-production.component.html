@@ -1,0 +1,85 @@
+<div class="formContainer">
+  <div fxLayout="row" fxLayoutAlign="left left">
+    <h1>JHCS: Production Stats</h1>
+  </div>
+  <div style="margin-top: 40px; padding-top: 20px">
+    <div fxLayout="row">
+      <mat-table fxFlexFill [dataSource]="dataSource1" fxFlex="45">
+        <ng-container matColumnDef="dod">
+          <mat-header-cell *matHeaderCellDef> DOD Component </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.dod }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="count">
+          <mat-header-cell *matHeaderCellDef> Count </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.count }} </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns1"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns1"></mat-row>
+      </mat-table>
+      <div fxFlex="45" style="margin-left: 100px; margin-top: -50px" *ngIf="dodDatas != null">
+        <canvas baseChart
+          [data]="pieChartData"
+          [type]="pieChartType"
+          [options]="pieChartOptions"
+          [plugins]="pieChartPlugins">
+        </canvas>
+      </div>
+    </div>
+    <div fxLayout="row" style="position: relative; padding-top: 100px">
+      <mat-table fxFlexFill [dataSource]="dataSource2" fxFlex>
+        <ng-container matColumnDef="flag">
+          <mat-header-cell *matHeaderCellDef> Flag </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.flag }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="type">
+          <mat-header-cell *matHeaderCellDef> Action Type </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.type }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="count">
+          <mat-header-cell *matHeaderCellDef> Count </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.count }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+          <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.description }}
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns2"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns2"></mat-row>
+      </mat-table>
+    </div>
+    <div fxLayout="row" style="position: relative; padding-top: 100px">
+      <jhcs-pagable-table
+        title=""
+        [loading]="loading3"
+        [itemColumns]="itemColumns3"
+        [items]="dataSource3"
+        [total]="totalDataCount3"
+        [pageIndex]="pageIndex3"
+        [pageSize]="pageSize3"
+        (fetchDatas)="getHazardDetails($event)"
+        style="width: 40%"
+      >
+      </jhcs-pagable-table>
+      <jhcs-pagable-table
+        title=""
+        [loading]="loading4"
+        [itemColumns]="itemColumns4"
+        [items]="dataSource4"
+        [total]="totalDataCount4"
+        [pageIndex]="pageIndex4"
+        [pageSize]="pageSize4"
+        (fetchDatas)="getUnDetails($event)"
+        style="width: 50%; padding-left: 100px"
+      >
+      </jhcs-pagable-table>
+    </div>
+    <mat-menu #menu="matMenu"> </mat-menu>
+  </div>
+</div>

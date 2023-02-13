@@ -1,0 +1,666 @@
+<mat-drawer-container autosize>
+  <mat-drawer #drawer mode="over" position="end" (keydown.escape)="drawer.close()">
+      <jhcs-change-detection-content [currentItem]="jhcs" buttonName="Apply" (applyChange)="applyChange($event)">
+      </jhcs-change-detection-content>
+  </mat-drawer>
+
+  <div class="formContainer">
+    <div class="button-padding-bottom" fxLayout="row" fxLayoutAlign="space-between center">
+      <h1 class="">JHCS Record {{ edit ? 'Edit' : 'Create' }}</h1>
+      <button *ngIf="edit" mat-raised-button class="button-blue" type="button">
+        <mat-icon class="icon-white">refresh</mat-icon>
+      </button>
+    </div>
+
+    <mat-accordion class="example-headers-align" [formGroup]="form">
+      <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+        <mat-expansion-panel-header>
+          <div *ngIf="hasError; else noError">
+            <span matBadge="1" matBadgeSize="medium" matBadgeColor="warn"></span>
+          </div>
+          <ng-template #noError>
+            <mat-icon>check_circle</mat-icon>
+          </ng-template>
+          <mat-panel-description>
+            <!-- Type your file details -->
+            <mat-icon class="expansion-title-icon icon-color">filter_1</mat-icon>
+            <mat-panel-title>
+              JHCS File Numbers
+            </mat-panel-title>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+                <!-- start of first form fields -->
+                <div fxLayout="row"  fxLayoutGap="15px">
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>ID No</mat-label>
+            <input matInput type="number" min="1" formControlName="id" readonly>
+            <mat-icon matSuffix>tag</mat-icon>
+          </mat-form-field>
+
+          <!-- change this to similair to phone number -->
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>NSN</mat-label>
+            <input type="text"
+                   placeholder="NSN"
+                   formControlName ="nsn"
+                   matInput
+                   id="nsnInput"
+                   [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+              <cdk-virtual-scroll-viewport [ngStyle]="{'height': nsnAutoCompleteControlHeight}" itemSize="20" >
+                <mat-option *cdkVirtualFor="let nsn of filteredNsn"
+                            [value]="nsn"
+                            class="nsn-autocomplete-item">
+                  {{nsn}}
+                </mat-option>
+              </cdk-virtual-scroll-viewport>
+            </mat-autocomplete>
+
+            <mat-icon matSuffix>tag</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>DODIC</mat-label>
+            <input matInput formControlName="dodic" minlength="4" maxlength="4">
+            <mat-icon matSuffix>tag</mat-icon>
+          </mat-form-field>
+        </div>
+        <!-- end of first form fields -->
+
+        <!-- #docregion action-bar -->
+        <mat-action-row>
+          <button mat-stroked-button class="button-color" (click)="nextStep()">
+            <mat-icon>keyboard_double_arrow_right</mat-icon>
+          </button>
+        </mat-action-row>
+        <!-- #enddocregion action-bar -->
+      </mat-expansion-panel>
+
+      <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+        <mat-expansion-panel-header>
+          <div *ngIf="hasError; else noError">
+            <span matBadge="1" matBadgeSize="medium" matBadgeColor="warn"></span>
+          </div>
+          <ng-template #noError>
+            <mat-icon>check_circle</mat-icon>
+          </ng-template>
+          <mat-panel-description>
+            <!-- Type your classification details -->
+            <mat-icon class="icon-color expansion-title-icon">filter_2</mat-icon>
+            <mat-panel-title>
+              Initial JHCS Information
+            </mat-panel-title>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+                <!-- start of second form fields -->
+                <div fxLayout="row" fxLayoutGap="15px">
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>Originator</mat-label>
+            <input matInput formControlName="originator" [readonly]="edit" maxlength="10">
+            <mat-icon matSuffix>person</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>Action Officer</mat-label>
+            <input matInput formControlName="techActionOfficer" [readonly]="edit">
+            <mat-icon matSuffix>local_police</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row">
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>Nomenclature</mat-label>
+            <textarea matInput rows="4" formControlName="nomenclature" required maxlength="200"></textarea>
+            <mat-icon matSuffix>drive_file_rename_outline</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutGap="15px">
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>Action</mat-label>
+            <mat-select formControlName="actionType" required>
+              <mat-option value="F">Filing JHCS Add (F)</mat-option>
+              <mat-option value="H">Holding (H)</mat-option>
+              <mat-option value="I">Interim (I)</mat-option>
+              <mat-option value="N">No Class 1 (N)</mat-option>
+              <mat-option value="O">Other (O)</mat-option>
+              <mat-option value="P">Production (P)</mat-option>
+              <mat-option value="S">Storage (S)</mat-option>
+              <mat-option value="T">Test Plan (T)</mat-option>
+              <mat-option value="W">Weights (W)</mat-option>
+              <mat-option value="D">Deactivated (D)</mat-option>
+              <mat-option value="E">Editing Temporary (E)</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>local_police</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>Method of Classification</mat-label>
+            <mat-select formControlName="typeClass">
+              <mat-option value="0"></mat-option>
+              <mat-option value="1">Analogy</mat-option>
+              <mat-option value="2">49 CFR 173.56(h)</mat-option>
+              <mat-option value="3">Not New</mat-option>
+              <mat-option value="4">Panel</mat-option>
+              <mat-option value="5">Pre-1980</mat-option>
+              <mat-option value="6">Predominant Hazard</mat-option>
+              <mat-option value="7">Test</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>category</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutGap="15px">
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>DOD Component</mat-label>
+            <mat-select formControlName="dodComp">
+              <mat-option value="A">Army</mat-option>
+              <mat-option value="I">Air Force</mat-option>
+              <mat-option value="N">Navy</mat-option>
+              <mat-option value="U">Undetermined</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>account_balance</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>Tri-Service Coordination</mat-label>
+            <mat-select formControlName="triSvrCoord">
+              <mat-option value="0"></mat-option>
+              <mat-option value="1">YES, PANEL 7/89</mat-option>
+              <mat-option value="2">YES</mat-option>
+              <mat-option value="3">NO, NOT NEW ITEM</mat-option>
+              <mat-option value="4">NO</mat-option>
+              <mat-option value="5">NO (P)</mat-option>
+              <mat-option value="6">NO (O)</mat-option>
+              <mat-option value="7">CFR 173.56</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>support_agent</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutGap="15px">
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>Army Date</mat-label>
+            <input matInput [matDatepicker]="picker1" value="date" formControlName="armyDate">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>Army File No:</mat-label>
+            <input matInput formControlName="fileNumber">
+            <mat-icon matSuffix>confirmation_number</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutGap="15px">
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>Air Force Date</mat-label>
+            <input matInput [matDatepicker]="picker2" value="date" formControlName="afdate">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>Air Force File No:</mat-label>
+            <input matInput formControlName="afFileNumber">
+            <mat-icon matSuffix>confirmation_number</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutGap="15px">
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>Navy Date</mat-label>
+            <input matInput [matDatepicker]="picker3" value="date" formControlName="navydate">
+            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+            <mat-datepicker #picker3></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>Navy File No:</mat-label>
+            <input matInput formControlName="navyFileNumber">
+            <mat-icon matSuffix>confirmation_number</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutGap="15px">
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>DDESB Date</mat-label>
+            <input matInput [matDatepicker]="picker4" value="date" formControlName="fhc">
+            <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+            <mat-datepicker #picker4></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>Last Modified Date</mat-label>
+            <input matInput [matDatepicker]="picker5" value="date" readonly formControlName="dateLastChanged">
+            <!-- <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle> -->
+            <mat-icon matSuffix>event</mat-icon>
+            <mat-datepicker #picker5></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutGap="15px">
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>Inhabited Building Distance</mat-label>
+            <input matInput formControlName="inhabitedBldgDistance" maxlength="2">
+            <mat-icon matSuffix>apartment</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>Group Name</mat-label>
+            <input
+              type="text"
+              placeholder="Group Name"
+              formControlName ="groupNameId"
+              matInput
+              [matAutocomplete]="auto1">
+            <mat-autocomplete #auto1="matAutocomplete" [displayWith]="getGroupName.bind(this)">
+              <cdk-virtual-scroll-viewport [ngStyle]="{'height': groupNameAutoCompleteControlHeight}" itemSize="20" >
+                <mat-option *cdkVirtualFor="let groupName of filteredGroupName"
+                            [value]="groupName.id"
+                            class="nsn-autocomplete-item">
+                  {{groupName.jhcsGroupName}}
+                </mat-option>
+              </cdk-virtual-scroll-viewport>
+            </mat-autocomplete>
+            <mat-icon matSuffix>group</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutGap="15px">
+          <mat-form-field appearance="fill" fxFlex="49">
+            <mat-label>Sensitivity Group</mat-label>
+            <mat-select>
+              <mat-option value="one">First option</mat-option>
+              <mat-option value="two">Second option</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>groups</mat-icon>
+          </mat-form-field>
+        </div>
+        <!-- end of second form fields -->
+
+        <mat-action-row>
+          <button mat-stroked-button class="button-color" (click)="prevStep()">
+            <mat-icon class="icon-red">keyboard_double_arrow_left</mat-icon>
+          </button>
+          <button mat-stroked-button class="button-color" (click)="nextStep()">
+            <mat-icon>keyboard_double_arrow_right</mat-icon>
+          </button>
+        </mat-action-row>
+      </mat-expansion-panel>
+
+      <!-- 3rd panel -->
+
+      <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+        <mat-expansion-panel-header>
+          <div *ngIf="hasError; else noError">
+            <span matBadge="1" matBadgeSize="medium" matBadgeColor="warn"></span>
+          </div>
+          <ng-template #noError>
+            <mat-icon>check_circle</mat-icon>
+          </ng-template>
+          <mat-panel-description>
+            <!-- Type the country name -->
+            <mat-icon class="icon-color expansion-title-icon">filter_3</mat-icon>
+            <mat-panel-title>
+              Shipping Information
+            </mat-panel-title>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+
+        <!-- start of third form fields -->
+
+        <div fxLayout="row">
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>Shipping Description</mat-label>
+            <input matInput formControlName="shippingDescription">
+            <mat-icon matSuffix>rate_review</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row" formGroupName="jhcsUnSerNum" fxLayoutGap="15px">
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>Proper Shipping Name</mat-label>
+            <input matInput formControlName="shipName" maxlength="150">
+            <mat-icon matSuffix>local_shipping</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>UN Number</mat-label>
+            <input matInput formControlName="unoSerialNo" maxlength="4">
+            <mat-icon matSuffix>confirmation_number</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row" formGroupName="jhcsUnSerNum" fxLayoutGap="15px">
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>DOD Hazard Class/Division</mat-label>
+            <input matInput formControlName="hazardClass" maxlength="1">
+            <mat-icon matSuffix>category</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>Compatibility Group</mat-label>
+            <input matInput formControlName="compatibilityGroup" minlength="1" maxlength="1">
+            <mat-icon matSuffix>group</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row">
+          <mat-form-field appearance="fill" fxFlex="49">
+            <mat-label>AF Hazard Symbol</mat-label>
+            <input matInput formControlName="afHazardSymbol" readonly>
+            <mat-icon matSuffix>sort_by_alpha</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row">
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>Shipping Label 1</mat-label>
+            <mat-select formControlName="shipLabel1" [attr.disabled]="!jhcs?.jhcsUnSerNum">
+              <mat-option *ngFor="let label of jhcsLabelCodes" value="{{label.id}}">{{ label.description }}</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>video_label</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row">
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>Shipping Label 2</mat-label>
+            <mat-select formControlName="shipLabel2" [attr.disabled]="!jhcs?.jhcsUnSerNum">
+              <mat-option *ngFor="let label of jhcsLabelCodes" value="{{label.id}}">{{ label.description }}</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>video_label</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row">
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>Shipping Label 3</mat-label>
+            <mat-select formControlName="shipLabel3" [attr.disabled]="!jhcs?.jhcsUnSerNum">
+              <mat-option *ngFor="let label of jhcsLabelCodes" value="{{label.id}}">{{ label.description }}</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>video_label</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row">
+          <mat-form-field appearance="fill" fxFlex="49">
+            <mat-label>Technical Name Test</mat-label>
+            <input matInput formControlName="techName">
+            <mat-icon matSuffix>dvr</mat-icon>
+          </mat-form-field>
+        </div>
+        <!-- end of third form fields -->
+
+        <mat-action-row>
+          <button mat-stroked-button class="button-color" (click)="prevStep()">
+            <mat-icon class="icon-red">keyboard_double_arrow_left</mat-icon>
+          </button>
+          <button mat-stroked-button class="button-color" (click)="nextStep()">
+            <mat-icon>keyboard_double_arrow_right</mat-icon>
+          </button>
+        </mat-action-row>
+      </mat-expansion-panel>
+
+      <!-- 4th panel -->
+      <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
+        <mat-expansion-panel-header>
+          <div *ngIf="hasError; else noError">
+            <span matBadge="1" matBadgeSize="medium" matBadgeColor="warn"></span>
+          </div>
+          <ng-template #noError>
+            <mat-icon>check_circle</mat-icon>
+          </ng-template>
+          <mat-panel-description>
+            <!-- Type the country name -->
+            <mat-icon class="icon-color expansion-title-icon">filter_4</mat-icon>
+            <mat-panel-title>
+              DOT Information Details
+            </mat-panel-title>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <!-- start of forth form fields -->
+
+        <!-- missing field value -->
+        <div fxLayout="row" formGroupName="dotLetter" fxLayoutGap="15px">
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>DOT Reference (EX) No.</mat-label>
+            <input matInput value="{{form.value.dotLetter?.fileName}}" readonly>
+            <mat-icon matSuffix>file_upload</mat-icon>
+            <input type="file" class="uploadFile" name="dotBlobFile" (change)="uploadDotFile($event)"
+                accept=".txt,.doc,.docx,.pdf" />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>DOT Letter Expiration Date</mat-label>
+            <input matInput [matDatepicker]="picker6" value="date" formControlName="expirationDate">
+            <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
+            <mat-datepicker #picker6></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row" formGroupName="dotLetter" fxLayoutGap="15px">
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>DOT Letter File Date</mat-label>
+            <input matInput [matDatepicker]="picker7" value="date" formControlName="fileDate">
+            <mat-datepicker-toggle matSuffix [for]="picker7"></mat-datepicker-toggle>
+            <mat-datepicker #picker7></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>DOT Tracking No</mat-label>
+            <input matInput formControlName="dotTracking">
+            <mat-icon matSuffix>gps_fixed</mat-icon>
+          </mat-form-field>
+        </div>
+        <!-- end of forth form fields -->
+
+        <mat-action-row>
+          <button mat-stroked-button class="button-color" (click)="prevStep()">
+            <mat-icon class="icon-red">keyboard_double_arrow_left</mat-icon>
+          </button>
+          <button mat-stroked-button class="button-color" (click)="nextStep()">
+            <mat-icon>keyboard_double_arrow_right</mat-icon>
+          </button>
+        </mat-action-row>
+      </mat-expansion-panel>
+
+      <!-- 5th panel -->
+      <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" hideToggle>
+        <mat-expansion-panel-header>
+          <div *ngIf="hasError; else noError">
+            <span matBadge="1" matBadgeSize="medium" matBadgeColor="warn"></span>
+          </div>
+          <ng-template #noError>
+            <mat-icon>check_circle</mat-icon>
+          </ng-template>
+          <mat-panel-description>
+            <!-- Type the country name -->
+            <mat-icon class="icon-color expansion-title-icon">filter_5</mat-icon>
+            <mat-panel-title>
+              PN/Dwng Uploads
+            </mat-panel-title>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <!-- start of the fith form -->
+        <div fxLayout="row wrap" fxLayoutGap="15px grid">
+          <div fxFlex="49%" *ngFor="let item of counter(10); let no = index;">
+            
+            <!-- <mat-form-field appearance="fill" style="width: 100%;">
+              <mat-label>PN/Dwg{{(no + 1).toString().padStart(2, '0')}}</mat-label>
+              <input matInput [formControlName]="drawingControlName(no + 1)">
+              <mat-icon matSuffix>upload_file</mat-icon>
+            </mat-form-field> -->
+
+            <mat-form-field appearance="fill" style="width: 100%;">
+              <mat-label>PN/Dwg{{(no + 1).toString().padStart(2, '0')}}</mat-label>
+              <input matInput [value]="drawingFileName(no + 1)" readonly>
+              <mat-icon matSuffix>upload_file</mat-icon>
+              <input type="file" class="uploadFile" (change)="uploadDrawingFile($event, no + 1)" accept=".txt,.doc,.docx,.pdf" />
+            </mat-form-field>
+
+          </div>
+        </div>
+        <!-- end of the fifth form -->
+
+        <mat-action-row>
+          <button mat-stroked-button class="button-color" (click)="prevStep()">
+            <mat-icon class="icon-red">keyboard_double_arrow_left</mat-icon>
+          </button>
+          <button mat-stroked-button class="button-color" (click)="nextStep()">
+            <mat-icon>keyboard_double_arrow_right</mat-icon>
+          </button>
+        </mat-action-row>
+      </mat-expansion-panel>
+
+      <!-- 6th panel -->
+      <mat-expansion-panel [expanded]="step === 5" (opened)="setStep(5)" hideToggle>
+        <mat-expansion-panel-header>
+          <div *ngIf="hasError; else noError">
+            <span matBadge="1" matBadgeSize="medium" matBadgeColor="warn"></span>
+          </div>
+          <ng-template #noError>
+            <mat-icon>check_circle</mat-icon>
+          </ng-template>
+          <mat-panel-description>
+            <!-- Type the country name -->
+            <mat-icon class="icon-color expansion-title-icon">filter_6</mat-icon>
+            <mat-panel-title>
+              Weight Information Details
+            </mat-panel-title>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <!-- start of the sith form -->
+        <div>
+          <div fxLayout="row" class="mb-2">
+            <mat-radio-group aria-label="Weight Type" fxFlex formControlName="weightUnit">
+              Weight Type:
+              <mat-radio-button *ngFor="let unit of weightUnits" [value]="unit.value">
+                {{ unit.label }}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+          <div fxLayout="row wrap" fxLayoutGap="15px grid">
+            <div fxFlex="49%" *ngFor="let wt of weightTypes">
+              <div *ngIf="form.value.weightUnit=='lbs'">
+                <mat-form-field appearance="fill" style="width:100%;">
+                  <mat-label>{{ wt.label }} </mat-label>
+                  <input matInput [formControlName]="weightControlName(wt.type)">
+                  <mat-icon matSuffix>monitor_weight</mat-icon>
+                </mat-form-field>
+              </div>
+              <div *ngIf="form.value.weightUnit=='kgs'">
+                <mat-form-field appearance="fill" style="width:100%;">
+                  <mat-label>{{ wt.label }} </mat-label>
+                  <input matInput [formControlName]="weightControlName(wt.type)">
+                  <mat-icon matSuffix>monitor_weight</mat-icon>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- end of the sixth form -->
+
+        <mat-action-row>
+          <button mat-stroked-button class="button-color" (click)="prevStep()">
+            <mat-icon class="icon-red">keyboard_double_arrow_left</mat-icon>
+          </button>
+          <button mat-stroked-button class="button-color" (click)="nextStep()">
+            <mat-icon>keyboard_double_arrow_right</mat-icon>
+          </button>
+        </mat-action-row>
+      </mat-expansion-panel>
+
+      <!-- last panel -->
+      <mat-expansion-panel [expanded]="step === 6" (opened)="setStep(6)" hideToggle>
+        <mat-expansion-panel-header>
+          <div *ngIf="hasError; else noError">
+            <span matBadge="1" matBadgeSize="medium" matBadgeColor="warn"></span>
+          </div>
+          <ng-template #noError>
+            <mat-icon>check_circle</mat-icon>
+          </ng-template>
+          <mat-panel-description>
+            <!-- Inform the date you wish to travel -->
+            <mat-icon class="icon-color expansion-title-icon">filter_7</mat-icon>
+            <mat-panel-title>
+              Packaging Information
+            </mat-panel-title>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <!-- start of the last form -->
+        <section class="example-section">
+          <mat-checkbox class="example-margin" formControlName="packingRequired">Packaging Required</mat-checkbox>
+        </section>
+
+        <div fxLayout="row">
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>Packaging Data</mat-label>
+            <textarea matInput rows="4" formControlName="packData" maxlength="500"></textarea>
+            <mat-icon matSuffix>drive_file_rename_outline</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row">
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>Additional Notes</mat-label>
+            <textarea matInput rows="4" maxlength="2000" formControlName="additionalNotes" maxlength="2000"></textarea>
+            <mat-icon matSuffix>drive_file_rename_outline</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row">
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>Remarks</mat-label>
+            <textarea matInput rows="4" maxlength="2000" formControlName="adminRemarks" maxlength="2000"></textarea>
+            <mat-icon matSuffix>drive_file_rename_outline</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row">
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>Administrative Comments</mat-label>
+            <textarea matInput rows="5" maxlength="4000" formControlName="adminComments" maxlength="4000"></textarea>
+            <mat-icon matSuffix>drive_file_rename_outline</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row">
+          <mat-form-field appearance="fill" fxFlex>
+            <mat-label>Attachment Link</mat-label>
+            <input matInput formControlName="scansFileName">
+            <mat-icon matSuffix>link</mat-icon>
+          </mat-form-field>
+        </div>
+        <!-- end of the last form -->
+
+        <mat-action-row>
+          <button mat-stroked-button class="button-color" (click)="prevStep()">
+            <mat-icon class="icon-red">keyboard_double_arrow_left</mat-icon>
+          </button>
+          <button mat-stroked-button class="button-color" (click)="nextStep()">
+            <mat-icon>keyboard_double_arrow_up</mat-icon>
+          </button>
+        </mat-action-row>
+      </mat-expansion-panel>
+
+    </mat-accordion>
+
+    <div class="button-padding" fxLayout="row" fxLayoutAlign="center center">
+      <button mat-raised-button class="button-blue" type="button" fxFlex="12" (click)="submitForm()">
+        <mat-icon class="icon-white">save_as</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-drawer-container>

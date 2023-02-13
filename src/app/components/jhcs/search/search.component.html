@@ -1,0 +1,94 @@
+
+<!-- put an if condition for this -->
+<!--<dui-jhcs-alert-dialog></dui-jhcs-alert-dialog>-->
+<div class="formContainer">
+  <div fxFlexFill>
+    <div fxLayout="column">
+      <div fxLayout="column" fxLayoutAlign="space-between center" class="advanced-search-title">
+        <span style="font-size: 20px">JHCS Advanced Search</span>
+      </div>
+      <form [formGroup]="searchForm" (ngSubmit)="submitForm()">
+        <div class="card mt-4">
+          <div class="card-body">
+            <div formArrayName="fields">
+              <div fxLayout="column" class="mt-2 advanced-search-text" *ngFor="let _ of fields.controls; index as i" [formGroupName]="i">
+                <div fxLayout="row" fxLayoutGap="20px">
+                  <div fxFlex="35">
+                    <mat-form-field fxFlexFill>
+                      <mat-label><mat-icon matSuffix>filter_list</mat-icon> Select Field</mat-label>
+                      <input type="text"
+                             placeholder="Select Field"
+                             aria-label="Number"
+                             matInput
+                             formControlName="name"
+                             (focus)="onFocusSelectFieldInput(i)"
+                             [matAutocomplete]="auto">
+                      <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option class="advanced-search-text" *ngFor="let option of filteredOptions | async" [value]="option.text">
+                          {{option.text}}
+                        </mat-option>
+                      </mat-autocomplete>
+                    </mat-form-field>
+                  </div>
+                  <div fxFlex="20">
+                    <mat-form-field fxFlexFill>
+                      <mat-label>Filter Type</mat-label>
+                      <mat-select formControlName="op">
+                        <mat-option [value]="1">is ...</mat-option>
+                        <mat-option [value]="2">contains</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div fxFlex="40">
+                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                      <mat-form-field fxFlexFill>
+                        <mat-label> <mat-icon matSuffix>drive_file_rename_outline</mat-icon> Value</mat-label>
+                        <input matInput placeholder="Value" formControlName="value">
+                      </mat-form-field>
+                      <mat-icon class="icon-color-red" aria-hidden="false" aria-label="Delete search field" (click)="deleteSearchFiled($event, i)">clear</mat-icon>
+                    </div>
+                  </div>
+                </div>
+
+
+
+              </div>
+            </div>
+            <div class="pad-the-bottom" fxLayout="row" fxLayoutAlign="end end">
+              <button mat-mini-fab (click)="addField($event)" class="button-color-blue">
+                <mat-icon aria-hidden="false" aria-label="Add search field">add</mat-icon>
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px">
+                <button mat-raised-button color="primary" type="submit" fxFlex="15">Search</button>
+              <button mat-raised-button type="button" fxFlex="15" class="button-color-red" (click)="reset()">Reset</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="search-result" *ngIf="searchedItem">
+      <!-- <h3 class="">Search Items</h3> -->
+      <div *ngIf="searchedItem.recordMatch?.id" class="mt-1">
+        <h1><strong>Record match:</strong></h1>
+        <app-search-table [dataSource]="getRecordMatchItem()"></app-search-table>
+      </div>
+      <div *ngIf="searchedItem.bestMatches?.length" class="mt-1">
+        <h1><strong>Best matches:</strong></h1>
+        <app-search-table [dataSource]="searchedItem.bestMatches"></app-search-table>
+      </div>
+      <div *ngIf="searchedItem.otherMatches?.length" class="mt-1">
+        <h1><strong>Closest matches:</strong></h1>
+        <app-search-table [dataSource]="searchedItem.otherMatches"></app-search-table>
+      </div>
+      <div *ngIf="isEmptySearchResult()" class="no-records">
+        No Records Found...
+      </div>
+    </div>
+  </div>
+</div>
+

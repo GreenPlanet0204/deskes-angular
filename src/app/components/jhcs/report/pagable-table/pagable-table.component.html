@@ -1,0 +1,30 @@
+<div fxLayout="row" fxLayoutAlign="left left">
+  <h1>{{title}}</h1>
+</div>
+<div>
+  <div fxLayout="row" style="position: relative;">  
+    <mat-table matSort fxFlexFill [dataSource]="dataSource" fxFlex>
+      <ng-container *ngFor="let item of itemColumns" [matColumnDef]="item.key">
+        <mat-header-cell *matHeaderCellDef> {{item.name}} </mat-header-cell>
+      
+        <div *ngIf="item.key == 'action' else defaultElement">
+          <mat-cell *matCellDef="let element"> 
+              <button mat-icon-button color="primary" (click)="viewItem(element.id)" title="View Contact"><mat-icon>visibility</mat-icon></button>
+              <button mat-icon-button color="primary" (click)="editItem(element.id)" title="Edit Contact"><mat-icon>edit</mat-icon></button>
+          </mat-cell>
+        </div>
+        <ng-template #defaultElement>
+          <mat-cell *matCellDef="let element"> {{element[item.key]}} </mat-cell>
+        </ng-template>>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <div *ngIf="loading" fxLayoutAlign="center" class="mt-2">
+      <mat-progress-spinner mode="indeterminate" diameter="30"></mat-progress-spinner>
+    </div>
+  </div> 
+  <div *ngIf="!loading" fxLayout="row" fxLayoutAlign="end">
+    <mat-paginator [length]="total" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 100]" (page)="pageEvent($event)" aria-label="Select page of users"></mat-paginator>
+  </div>
+</div>

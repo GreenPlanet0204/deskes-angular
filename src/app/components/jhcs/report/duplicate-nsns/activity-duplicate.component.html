@@ -1,0 +1,38 @@
+<div class="formContainer">
+  <div fxLayout="row" fxLayoutAlign="left left">
+    <h1>JHCS: Duplicate NSNs</h1>
+  </div>
+  <div style="margin-top: 40px; padding-top: 20px; min-height: 200px;">
+    <div fxLayout="row">
+      <mat-table fxFlex="50%" [dataSource]="dataSource1">
+        <ng-container matColumnDef="service">
+            <mat-header-cell *matHeaderCellDef> Service</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.service}} </mat-cell>
+        </ng-container>
+      
+        <ng-container matColumnDef="records">
+          <mat-header-cell *matHeaderCellDef> Records </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.records}} </mat-cell>
+        </ng-container>
+      
+        <ng-container matColumnDef="nsns">
+          <mat-header-cell *matHeaderCellDef> NSNs </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.nsns}} </mat-cell>
+        </ng-container>
+      
+        <mat-header-row *matHeaderRowDef="displayedColumns1"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns1"></mat-row>
+      </mat-table>      
+    </div>
+  </div>
+  
+  <jhcs-export-table
+    [loading]="loading"
+    [columns]="itemColumns2"
+    [userData]="dataSource2"
+    [totalCount]="totalDataCount"
+    [filterable]="true"
+    (updatePage)="updatePage($event)"
+  >
+  </jhcs-export-table>
+</div>

@@ -1,0 +1,45 @@
+<div>
+  <div fxLayout="row" fxLayoutGap="0px">
+  <mat-form-field fxFlex appearance="outline">
+    <mat-icon matPrefix>search</mat-icon>
+    <mat-label class="test"> Search</mat-label>
+    <input type="text" placeholder="Input keyword" matInput [formControl]="inputControl" [matAutocomplete]="auto" [(ngModel)]="keyword">
+
+    <mat-autocomplete #auto="matAutocomplete">
+      <ng-container *ngIf="(liveSearchItems$ | async) as item">
+        <div *ngIf="keyword">
+          <div *ngIf="!item.recordMatch.id && !item.otherMatches.length">
+            <mat-option *ngIf="!item.recordMatch?.id" disabled>No Records Found...</mat-option>
+          </div>
+          <div *ngIf="item.recordMatch?.id || item.otherMatches?.length">
+            <div class="bestmatch">
+              <div class="match-title">Best match:</div>
+              <mat-option *ngIf="item.recordMatch?.id" (click)="onclickItemDetail($event, item.recordMatch)">
+                ID: {{ item.recordMatch.id }}, Nomenclature: {{ item.recordMatch.nomenclature }}
+              </mat-option>
+              <mat-option *ngIf="!item.recordMatch?.id" disabled>None</mat-option>
+              <hr *ngIf="item.otherMatches?.length" />
+            </div>
+            <div class="othermatch" *ngIf="item.otherMatches?.length">
+              <div class="match-title">Closest matches:</div>
+              <mat-option *ngFor="let item of item.otherMatches" (click)="onclickItemDetail($event, item)">
+                ID: {{ item.id }}, Nomenclature: {{ item.nomenclature }}, DotFile: {{ item.dotFile }}
+              </mat-option>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </mat-autocomplete>
+  </mat-form-field>
+    <div class="top-btn-padding">
+      <button id='btn' class="advance-search-button" mat-button (click)="displayOverlay($event)" type="button" fxFlex="1" fxFlexAlign="baseline"><mat-icon class="">keyboard_arrow_down</mat-icon></button>
+    </div>
+  </div>
+</div>
+
+<!--<ng-template cdkConnectedOverlay-->
+<!--             [cdkConnectedOverlayOrigin]="trigger"-->
+<!--             [cdkConnectedOverlayOpen]="isOpen"-->
+<!--&gt;-->
+<!--  <app-search></app-search>-->
+<!--</ng-template>-->

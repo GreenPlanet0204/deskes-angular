@@ -1,0 +1,28 @@
+.mat-header-cell {
+  background: #505db2;
+  color:  white;
+  font-size: 16.5px;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.mat-cell{
+  text-align: center;
+  justify-content: center;
+}
+
+.mat-sort-header-arrow {
+  color: #ffffff !important;
+  /*opacity: 1 !important;*/
+}
+
+::ng-deep .mat-sort-header-arrow {
+  color: #ffffff;
+}
+
+.mt-2 {
+  margin-top: 20px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}

@@ -1,0 +1,477 @@
+<!-- <div class="container">
+    <div fxFlexFill>
+      <form [formGroup]="form" (ngSubmit)="submitForm()">
+        <div fxLayout="column">
+          <div fxLayout="row" fxLayoutGap="40px">
+            <mat-label fxLayoutAlign="end center" fxFlex="30">Originator:</mat-label>
+            <mat-form-field fxFlex="70" appearance="fill">
+              <input matInput readonly formControlName="originator">
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutGap="40px">
+            <mat-label fxLayoutAlign="end center" fxFlex="30">Action Officer:</mat-label>
+            <mat-form-field fxFlex="70" appearance="fill">
+              <input matInput readonly formControlName="techActionOfficer">
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutGap="40px">
+            <mat-label fxLayoutAlign="end center" fxFlex="30">Nomenclature:</mat-label>
+            <mat-form-field fxFlex="70" appearance="fill">
+              <textarea matInput rows="10" formControlName="nomenclature"></textarea>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutGap="40px">
+            <mat-label fxLayoutAlign="end center" fxFlex="30">Action: </mat-label>
+            <mat-form-field fxFlex="70" appearance="fill">
+              <mat-select formControlName="actionType">
+                <mat-option *ngFor="let item of actions" value="{{item.key}}">{{item.value}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <input type="hidden" formControlName="unoIdNo"> what is this???????????
+
+          <mat-divider class="my-2"></mat-divider>
+
+          <div fxLayout="column">
+            <div fxLayout="row" fxLayoutGap="40px">
+              <mat-label fxLayoutAlign="end center" fxFlex="30">Originator:</mat-label>
+              <mat-form-field fxFlex="70" appearance="fill">
+                <input matInput readonly formControlName="originator">
+              </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutGap="40px">
+              <mat-label fxLayoutAlign="end center" fxFlex="30">Action Officer:</mat-label>
+              <mat-form-field fxFlex="70" appearance="fill">
+                <input matInput readonly formControlName="techActionOfficer">
+              </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutGap="40px">
+              <mat-label fxLayoutAlign="end center" fxFlex="30">Nomenclature:</mat-label>
+              <mat-form-field fxFlex="70" appearance="fill">
+                <textarea matInput rows="10" formControlName="nomenclature"></textarea>
+              </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutGap="40px">
+              <mat-label fxLayoutAlign="end center" fxFlex="30">Action: </mat-label>
+              <mat-form-field fxFlex="70" appearance="fill">
+                <mat-select formControlName="actionType">
+                  <mat-option value="F" selected>Filing JHCS Add (F)</mat-option>
+                  <mat-option value="H">Holding (H)</mat-option>
+                  <mat-option value="I">Interim (I)</mat-option>
+                  <mat-option value="N">No Class 1 (N)</mat-option>
+                  <mat-option value="O">Other (O)</mat-option>
+                  <mat-option value="P">Production (P)</mat-option>
+                  <mat-option value="S">Storage (S)</mat-option>
+                  <mat-option value="T">Test Plan (T)</mat-option>
+                  <mat-option value="W">Weights (W)</mat-option>
+                  <mat-option value="D">Deactivated (D)</mat-option>
+                  <mat-option value="E">Editing Temporary (E)</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutGap="40px">
+              <mat-label fxLayoutAlign="end center" fxFlex="30">Method of Classification: </mat-label>
+              <mat-form-field fxFlex="70" appearance="fill">
+                <mat-select formControlName="typeClass">
+                  <mat-option value="0" selected></mat-option>
+                  <mat-option value="1">Analogy</mat-option>
+                  <mat-option value="2">49 CFR 173.56(h)</mat-option>
+                  <mat-option value="3">Not New</mat-option>
+                  <mat-option value="4">Panel</mat-option>
+                  <mat-option value="5">Pre-1980</mat-option>
+                  <mat-option value="6">Predominant Hazard</mat-option>
+                  <mat-option value="7">Test</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutGap="40px">
+              <mat-label fxLayoutAlign="end center" fxFlex="30">DOD Component: </mat-label>
+              <mat-form-field fxFlex="70" appearance="fill">
+                <mat-select formControlName="dodComp">
+                  <mat-option value="A">Army</mat-option>
+                  <mat-option value="I">Air Force</mat-option>
+                  <mat-option value="N">Navy</mat-option>
+                  <mat-option value="U">Undetermined</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutGap="40px">
+              <mat-label fxLayoutAlign="end center" fxFlex="30">Tri-Service Coordination: </mat-label>
+              <mat-form-field fxFlex="70" appearance="fill">
+                <mat-select formControlName="triSvrCoord">
+                  <mat-option value="0"></mat-option>
+                  <mat-option value="1">YES, PANEL 7/89</mat-option>
+                  <mat-option value="2">YES</mat-option>
+                  <mat-option value="3">NO, NOT NEW ITEM</mat-option>
+                  <mat-option value="4">NO</mat-option>
+                  <mat-option value="5">NO (P)</mat-option>
+                  <mat-option value="6">NO (O)</mat-option>
+                  <mat-option value="7">CFR 173.56</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div fxFlex="70" fxLayoutGap="40px">
+                <mat-label fxLayoutAlign="end center" fxFlex="40">Army Approval Date: </mat-label>
+                <mat-form-field fxFlex="60" appearance="fill">
+                  <input matInput readonly formControlName="armydate">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutGap="40px">
+            <mat-label fxLayoutAlign="end center" fxFlex="30">Army Force File No.: </mat-label>
+            <div fxFlex="70" fxLayoutAlign="space-between center">
+              <mat-form-field fxFlex="30" appearance="fill">
+                <input matInput formControlName="afFileNumber">
+              </mat-form-field>
+              <div fxFlex="70" fxLayoutGap="40px">
+                <mat-label fxLayoutAlign="end center" fxFlex="40">Army Force Approval Date: </mat-label>
+                <mat-form-field fxFlex="60" appearance="fill">
+                  <input matInput readonly formControlName="afdate">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutGap="40px">
+            <mat-label fxLayoutAlign="end center" fxFlex="30">Navy File No.: </mat-label>
+            <div fxFlex="70" fxLayoutAlign="space-between center">
+              <mat-form-field fxFlex="30" appearance="fill">
+                <input matInput formControlName="navyFileNumber">
+              </mat-form-field>
+              <div fxFlex="70" fxLayoutGap="40px">
+                <mat-label fxLayoutAlign="end center" fxFlex="40">Navy Approval Date: </mat-label>
+                <mat-form-field fxFlex="60" appearance="fill">
+                  <input matInput readonly formControlName="navydate">
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout="row" fxLayoutGap="40px">
+              <mat-label fxLayoutAlign="end center" fxFlex="30">AF Hazard Symbol: </mat-label>
+              <mat-form-field fxFlex="70" appearance="fill">
+                <input matInput readonly formControlName="afHazardSymbol">
+              </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutGap="40px">
+              <mat-label fxLayoutAlign="end center" fxFlex="30">Shipping Label 1: </mat-label>
+              <mat-form-field fxFlex="70" appearance="fill">
+                <input matInput readonly formControlName="shipLabel1">
+              </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutGap="40px">
+              <mat-label fxLayoutAlign="end center" fxFlex="30">Shipping Label 2: </mat-label>
+              <mat-form-field fxFlex="70" appearance="fill">
+                <input matInput readonly formControlName="shipLabel2">
+              </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutGap="40px">
+              <mat-label fxLayoutAlign="end center" fxFlex="30">Shipping Label 3: </mat-label>
+              <mat-form-field fxFlex="70" appearance="fill">
+                <input matInput readonly formControlName="shipLabel3">
+              </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutGap="40px">
+              <mat-label fxLayoutAlign="end center" fxFlex="30">Technical Name: </mat-label>
+              <mat-form-field fxFlex="70" appearance="fill">
+                <input matInput formControlName="techName">
+              </mat-form-field>
+              <div fxFlex="70" fxLayoutGap="40px">
+                <mat-label fxLayoutAlign="end center" fxFlex="40">Compatibility Group: </mat-label>
+                <mat-form-field fxFlex="60" appearance="fill">
+                  <input matInput readonly formControlName="cg">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutGap="40px">
+            <mat-label fxLayoutAlign="end center" fxFlex="30">AF Hazard Symbol: </mat-label>
+            <mat-form-field fxFlex="70" appearance="fill">
+              <input matInput readonly formControlName="afHazardSymbol">
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutGap="40px">
+            <mat-label fxLayoutAlign="end center" fxFlex="30">Shipping Label 1: </mat-label>
+            <mat-form-field fxFlex="70" appearance="fill">
+              <input matInput readonly formControlName="label1">
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutGap="40px">
+            <mat-label fxLayoutAlign="end center" fxFlex="30">Shipping Label 2: </mat-label>
+            <mat-form-field fxFlex="70" appearance="fill">
+              <input matInput readonly formControlName="label2">
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutGap="40px">
+            <mat-label fxLayoutAlign="end center" fxFlex="30">Shipping Label 3: </mat-label>
+            <mat-form-field fxFlex="70" appearance="fill">
+              <input matInput readonly formControlName="label3">
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutGap="40px">
+            <mat-label fxLayoutAlign="end center" fxFlex="30">Technical Name: </mat-label>
+            <mat-form-field fxFlex="70" appearance="fill">
+              <input matInput formControlName="techName">
+            </mat-form-field>
+          </div>
+
+          <mat-divider class="my-2"></mat-divider>
+
+          <div fxLayout="row" fxLayoutGap="40px">
+            <mat-label fxLayoutAlign="end center" fxFlex="30">DOT Reference (EX) No.: </mat-label>
+            <div fxFlex="70" class="uploader-wapper my-2">
+              <mat-toolbar>
+                <span>{{ form.value.dotFile }}</span>
+                <span class="toolbar-spacer"></span>
+                <button mat-icon-button>
+                  <mat-icon aria-hidden="false" aria-label="Browse File">upload_outline</mat-icon>
+                </button>
+              </mat-toolbar>
+              <input type="file" id="uploadFile" name="dotBlobFile" (change)="uploadDotFile($event)"
+                accept=".txt,.doc,.docx,.pdf" />
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutGap="40px">
+            <mat-label fxLayoutAlign="end center" fxFlex="30">DOT Letter Expiration Date: </mat-label>
+            <mat-form-field fxFlex="70" appearance="fill">
+              <input matInput readonly [matDatepicker]="dotLetterExpDate" formControlName="dotLetterExpDate">
+              <mat-datepicker-toggle matSuffix disabled [for]="dotLetterExpDate"></mat-datepicker-toggle>
+              <mat-datepicker disabled #dotLetterExpDate></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutGap="40px">
+            <mat-label fxLayoutAlign="end center" fxFlex="30">DOT Letter File Date: </mat-label>
+            <mat-form-field fxFlex="70" appearance="fill">
+              <input matInput readonly [matDatepicker]="dotLetterFileDate" formControlName="dotFileDate">
+              <mat-datepicker-toggle matSuffix disabled [for]="dotLetterFileDate"></mat-datepicker-toggle>
+              <mat-datepicker disabled #dotLetterFileDate></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutGap="40px">
+            <mat-label fxLayoutAlign="end center" fxFlex="30">DOT Tracking No.: </mat-label>
+            <mat-form-field fxFlex="70" appearance="fill">
+              <input matInput formControlName="dotTrackingNumber">
+            </mat-form-field>
+          </div>
+
+          <mat-divider class="my-2"></mat-divider>
+
+          <div fxLayout="row" fxLayoutGap="40px">
+            <mat-label fxLayoutAlign="end center" fxFlex="30">PN/Dwg01: </mat-label>
+            <div fxFlex="70" fxLayoutAlign="space-between center">
+              <mat-form-field fxFlex="30" appearance="fill">
+                <input matInput formControlName="partOrDwg1">
+              </mat-form-field>
+              <div fxFlex="70" fxLayoutGap="40px">
+                <mat-label fxLayoutAlign="end center" fxFlex="40">PN/Dwg06: </mat-label>
+                <mat-form-field fxFlex="60" appearance="fill">
+                  <input matInput formControlName="partOrDwg6">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutGap="40px">
+            <mat-label fxLayoutAlign="end center" fxFlex="30">PN/Dwg02: </mat-label>
+            <div fxFlex="70" fxLayoutAlign="space-between center">
+              <mat-form-field fxFlex="30" appearance="fill">
+                <input matInput formControlName="partOrDwg2">
+              </mat-form-field>
+              <div fxFlex="70" fxLayoutGap="40px">
+                <mat-label fxLayoutAlign="end center" fxFlex="40">PN/Dwg07: </mat-label>
+                <mat-form-field fxFlex="60" appearance="fill">
+                  <input matInput formControlName="partOrDwg7">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutGap="40px">
+            <mat-label fxLayoutAlign="end center" fxFlex="30">PN/Dwg03: </mat-label>
+            <div fxFlex="70" fxLayoutAlign="space-between center">
+              <mat-form-field fxFlex="30" appearance="fill">
+                <input matInput formControlName="partOrDwg3">
+              </mat-form-field>
+              <div fxFlex="70" fxLayoutGap="40px">
+                <mat-label fxLayoutAlign="end center" fxFlex="40">PN/Dwg08: </mat-label>
+                <mat-form-field fxFlex="60" appearance="fill">
+                  <input matInput formControlName="partOrDwg8">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutGap="40px">
+            <mat-label fxLayoutAlign="end center" fxFlex="30">PN/Dwg04: </mat-label>
+            <div fxFlex="70" fxLayoutAlign="space-between center">
+              <mat-form-field fxFlex="30" appearance="fill">
+                <input matInput formControlName="partOrDwg4">
+              </mat-form-field>
+              <div fxFlex="70" fxLayoutGap="40px">
+                <mat-label fxLayoutAlign="end center" fxFlex="40">PN/Dwg09: </mat-label>
+                <mat-form-field fxFlex="60" appearance="fill">
+                  <input matInput formControlName="partOrDwg9">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutGap="40px">
+            <mat-label fxLayoutAlign="end center" fxFlex="30">PN/Dwg05: </mat-label>
+            <div fxFlex="70" fxLayoutAlign="space-between center">
+              <mat-form-field fxFlex="30" appearance="fill">
+                <input matInput formControlName="partOrDwg5">
+              </mat-form-field>
+              <div fxFlex="70" fxLayoutGap="40px">
+                <mat-label fxLayoutAlign="end center" fxFlex="40">PN/Dwg10: </mat-label>
+                <mat-form-field fxFlex="60" appearance="fill">
+                  <input matInput formControlName="partOrDwg10">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <mat-divider class="my-2"></mat-divider>
+
+
+          <div fxLayout="row" fxLayoutGap="40px">
+            <mat-label fxLayoutAlign="end center" fxFlex="30">Net Explosive Weight lbs: </mat-label>
+            <div fxFlex="70" fxLayoutAlign="space-between center">
+              <mat-form-field fxFlex="30" appearance="fill">
+                <input matInput formControlName="newLbs">
+              </mat-form-field>
+              <div fxFlex="70" fxLayoutGap="40px">
+                <mat-label fxLayoutAlign="end center" fxFlex="40">kgs: </mat-label>
+                <mat-form-field fxFlex="60" appearance="fill">
+                  <input matInput formControlName="newKgs">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutGap="40px">
+            <mat-label fxLayoutAlign="end center" fxFlex="30">Net Explosive QD Weight lbs: </mat-label>
+            <div fxFlex="70" fxLayoutAlign="space-between center">
+              <mat-form-field fxFlex="30" appearance="fill">
+                <input matInput formControlName="newqdLbs">
+              </mat-form-field>
+              <div fxFlex="70" fxLayoutGap="40px">
+                <mat-label fxLayoutAlign="end center" fxFlex="40">kgs: </mat-label>
+                <mat-form-field fxFlex="60" appearance="fill">
+                  <input matInput formControlName="newqdKgs">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutGap="40px">
+            <mat-label fxLayoutAlign="end center" fxFlex="30">Explosive Max Credible Event Weight lbs:
+            </mat-label>
+            <div fxFlex="70" fxLayoutAlign="space-between center">
+              <mat-form-field fxFlex="30" appearance="fill">
+                <input matInput formControlName="mceLbs">
+              </mat-form-field>
+              <div fxFlex="70" fxLayoutGap="40px">
+                <mat-label fxLayoutAlign="end center" fxFlex="40">kgs: </mat-label>
+                <mat-form-field fxFlex="60" appearance="fill">
+                  <input matInput formControlName="mceKgs">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutGap="40px">
+            <mat-label fxLayoutAlign="end center" fxFlex="30">High Explosive Weight lbs: </mat-label>
+            <div fxFlex="70" fxLayoutAlign="space-between center">
+              <mat-form-field fxFlex="30" appearance="fill">
+                <input matInput formControlName="hewLbs">
+              </mat-form-field>
+              <div fxFlex="70" fxLayoutGap="40px">
+                <mat-label fxLayoutAlign="end center" fxFlex="40">kgs: </mat-label>
+                <mat-form-field fxFlex="60" appearance="fill">
+                  <input matInput formControlName="hewKgs">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutGap="40px">
+            <mat-label fxLayoutAlign="end center" fxFlex="30">Net Propellant Weight lbs: </mat-label>
+            <div fxFlex="70" fxLayoutAlign="space-between center">
+              <mat-form-field fxFlex="30" appearance="fill">
+                <input matInput formControlName="npwLbs">
+              </mat-form-field>
+              <div fxFlex="70" fxLayoutGap="40px">
+                <mat-label fxLayoutAlign="end center" fxFlex="40">kgs: </mat-label>
+                <mat-form-field fxFlex="60" appearance="fill">
+                  <input matInput formControlName="npwKgs">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutGap="40px">
+            <mat-label fxLayoutAlign="end center" fxFlex="30">Pyro Weight lbs: </mat-label>
+            <div fxFlex="70" fxLayoutAlign="space-between center">
+              <mat-form-field fxFlex="30" appearance="fill">
+                <input matInput formControlName="pyroLbs">
+              </mat-form-field>
+              <div fxFlex="70" fxLayoutGap="40px">
+                <mat-label fxLayoutAlign="end center" fxFlex="40">kgs: </mat-label>
+                <mat-form-field fxFlex="60" appearance="fill">
+                  <input matInput formControlName="pyroKgs">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutGap="40px">
+            <mat-label fxLayoutAlign="end center" fxFlex="30">Applicable HE Content lbs: </mat-label>
+            <div fxFlex="70" fxLayoutAlign="space-between center">
+              <mat-form-field fxFlex="30" appearance="fill">
+                <input matInput formControlName="ahecLbs">
+              </mat-form-field>
+              <div fxFlex="70" fxLayoutGap="40px">
+                <mat-label fxLayoutAlign="end center" fxFlex="40">kgs: </mat-label>
+                <mat-form-field fxFlex="60" appearance="fill">
+                  <input matInput formControlName="ahecKgs">
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout="row" fxLayoutGap="40px" class="my-2">
+              <mat-label fxLayoutAlign="end center" fxFlex="30">Packaging Required: </mat-label>
+              <mat-checkbox fxFlex="70" formControlName="packingRequired"></mat-checkbox>
+            </div>
+            <div fxLayout="row" fxLayoutGap="40px">
+              <mat-label fxLayoutAlign="end center" fxFlex="30">Packaging Data:</mat-label>
+              <mat-form-field fxFlex="70" appearance="fill">
+                <textarea matInput rows="10" formControlName="packData"></textarea>
+              </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutGap="40px">
+              <mat-label fxLayoutAlign="end center" fxFlex="30">Additional Notes:</mat-label>
+              <mat-form-field fxFlex="70" appearance="fill">
+                <textarea matInput rows="10" maxlength="2000" formControlName="additionalNotes"></textarea>
+              </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutGap="40px">
+              <mat-label fxLayoutAlign="end center" fxFlex="30">Remarks:</mat-label>
+              <mat-form-field fxFlex="70" appearance="fill">
+                <textarea matInput rows="10" maxlength="2000" formControlName="adminRemarks"></textarea>
+              </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutGap="40px">
+              <mat-label fxLayoutAlign="end center" fxFlex="30">Administrative Comments:</mat-label>
+              <mat-form-field fxFlex="70" appearance="fill">
+                <textarea matInput rows="10" maxlength="4000" formControlName="adminComments"></textarea>
+              </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutGap="40px">
+              <mat-label fxLayoutAlign="end center" fxFlex="30">Attachment Link: </mat-label>
+              <mat-form-field fxFlex="70" appearance="fill">
+                <input matInput formControlName="scansFileName">
+              </mat-form-field>
+            </div>
+
+            <div fxLayout="row">
+              <button mat-raised-button color="primary" type="submit">Save</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div> -->
+
+<app-jhcs-form
+  [edit]="true"
+  [jhcsId]="id"
+  (submitEvent)="submit($event)">
+</app-jhcs-form>

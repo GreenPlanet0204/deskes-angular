@@ -1,0 +1,78 @@
+<div class="table-container">
+  <div class="padding-bottom" fxLayout="row" fxLayoutAlign="center center">
+    <h1 class="">NSN Association Maintenance</h1>
+  </div>
+  <mat-form-field class="search-field" appearance="outline">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Input keyword" #input>
+    <mat-icon matPrefix>manage_search</mat-icon>
+  </mat-form-field>
+
+  <table  mat-table [dataSource]="dataSource" matSort>
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+      <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+    </ng-container>
+
+    <!-- NSN Column -->
+    <ng-container matColumnDef="nsn">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> NSN </th>
+      <td mat-cell *matCellDef="let row"> {{row.nsn}} </td>
+    </ng-container>
+
+    <!-- Code Column -->
+    <ng-container matColumnDef="code">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Code </th>
+      <td mat-cell *matCellDef="let row">
+        <div *ngIf="!row.isEditable ;else edit_input">
+          {{row.code}}
+        </div>
+        <ng-template #edit_input>
+          <mat-form-field floatLabel="never">
+            <mat-select [(value)]="row.code" placeholder="Hazard Symbol">
+              <mat-option>None</mat-option>
+              <mat-option value="DE">DE</mat-option>
+              <mat-option value="E">E</mat-option>
+              <mat-option value="C">C</mat-option>
+              <mat-option value="A">A</mat-option>
+              <mat-option value="B">B</mat-option>
+              <mat-option value="SEAL">SEAL</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Description Column -->
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+      <td mat-cell *matCellDef="let row">
+        <div>
+          {{row.description}}
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let row">
+        <div  fxLayout="row">
+          <button mat-icon-button color="primary" (click)="editCode(row)" title="Edit Code" fxFlex><mat-icon>{{ !row.isEditable ? 'edit' : 'done' }}</mat-icon></button>
+          <button mat-icon-button color="primary" (click)="clearCode(row)" title="Delete Code" fxFlex><mat-icon>delete_forever</mat-icon></button>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+</div>

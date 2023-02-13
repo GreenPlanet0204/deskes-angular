@@ -1,0 +1,17 @@
+<div style="padding: 24px;">
+  <h2 matDialogTitle style="text-align: center">{{ title }}</h2>
+  <mat-dialog-content style="text-align: left; white-space: pre-line">
+    <div class="message">
+      {{ message }}
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-content style="text-align: center">
+    <div class="confirm-action-panel">
+      <button type="button" color="primary" style="margin-right: 10px" mat-raised-button
+              (click)="dialogRef.close(true)">{{okText}}
+      </button>
+      <button type="button" color="primary" mat-button (click)="dialogRef.close()">{{cancelText}}</button>
+    </div>
+  </mat-dialog-content>
+</div>

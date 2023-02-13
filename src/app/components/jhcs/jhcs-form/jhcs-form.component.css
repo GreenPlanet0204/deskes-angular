@@ -1,0 +1,172 @@
+.container {
+  padding: 0 20%;
+}
+
+.my-2 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.mb-2 {
+  margin-bottom: 1rem;
+}
+
+.uploader-wapper {
+  display: block;
+  position: relative;
+  flex: auto;
+}
+
+.mat-toolbar-single-row {
+  background-color: rgba(0, 0, 0, .04);
+  padding: .75em .75em 0 .75em;
+  font: inherit;
+}
+
+.uploadFile {
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  z-index: 9;
+  opacity: 0;
+  height: 100%;
+  cursor: pointer;
+  position: absolute;
+}
+
+.formContainer {
+  position: relative;
+  max-width: 50rem;
+  margin: 5rem auto;
+  background: #fff;
+  width: 100%;
+  padding: 1rem 3rem 0;
+  border-radius: 1px;
+  padding-bottom: 50px;
+}
+
+.formContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+  -webkit-transform: scale(0.98);
+  transform: scale(0.98);
+  -webkit-transition: -webkit-transform 0.28s ease-in-out;
+  transition: -webkit-transform 0.28s ease-in-out;
+  transition: transform 0.28s ease-in-out;
+  transition: transform 0.28s ease-in-out, -webkit-transform 0.28s ease-in-out;
+  z-index: -1;
+}
+
+.formContainer:hover::before {
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.expansion-title-icon {
+  padding-right: 20px;
+}
+
+.mat-badge {
+  bottom: -12px;
+  right: 20px;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.pad-form-right {
+  padding-right: 50px;
+}
+
+.pad-form-right-calender {
+  padding-right: 26px;
+}
+
+.example-margin {
+  margin: 10px;
+}
+
+.pad-top-input {
+  padding-top: 10px;
+}
+
+.mat-radio-button~.mat-radio-button {
+  margin-left: 16px;
+}
+
+
+/* exapnsion panel */
+
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: red!important;
+}
+
+.mat-expansion-panel {
+  background: #f5f5f6;
+}
+
+.icon-color {
+  color: #505db2;
+}
+
+.button-color {
+  background-color: #ffffff;
+}
+
+.mat-icon {
+  color: #505db2;
+}
+
+.icon-red {
+  color: #c62828;
+}
+
+.button-blue {
+  background-color: #505db2;
+}
+
+.button-padding {
+  padding-top: 20px;
+}
+
+.icon-white {
+  color: #ffffff;
+}
+
+#logo-color {
+  fill: #505db2;
+  width: 55px;
+  height: 55px;
+  padding-bottom: 10px;
+}
+
+.button-padding-bottom {
+  padding-bottom: 20px;
+}
+
+.nsn-autocomplete-item {
+  height: 50px;
+  font-size: 14px !important;
+}

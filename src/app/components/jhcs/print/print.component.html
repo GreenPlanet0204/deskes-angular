@@ -1,0 +1,374 @@
+<div id="printDiv" class="container fill print-me">
+  <table class="result-table center">
+    <thead>
+      <tr class="unclass-row">
+        <td colspan="6" class="unclass">UNCLASSIFIED/FOUO</td>
+      </tr>
+      <tr class="spacer"></tr>
+    </thead>
+    <tfoot>
+      <tr class="spacer"></tr>
+      <tr class="unclass-row">
+        <td colspan="6" class="unclass">UNCLASSIFIED/FOUO</td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr>
+        <td colspan="2">
+          <span class="result-label-right">ID No:</span><span class="result">{{ jhcs?.id }}</span>
+        </td>
+        <td colspan="2">
+          <span class="result-label-right">NSN:</span><span class="result">{{ jhcs?.nsn || "empty" }}</span>
+        </td>
+        <td colspan="2">
+          <span class="result-label-right">DODIC:</span><span class="result">{{ jhcs?.dodic || "empty" }}</span>
+        </td>
+      </tr>
+
+      <tr>
+        <td class="result-label-left padded-row">Nomenclature:</td>
+        <td colspan="5" class="result padded-row">
+          {{ jhcs?.nomenclature || "empty" }}
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="2" class="result-label-left" min-role="hc">Originator:</td>
+        <td class="result border-right" min-role="hc">
+          {{ jhcs?.originator || "empty" }}
+        </td>
+
+        <td colspan="2" class="result-label-left" min-role="hc">
+          Action Officer:
+        </td>
+        <td class="result" min-role="hc">
+          {{ jhcs?.techActionOfficer || "empty" }}
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="2" class="result-label-left">Shipping Description:</td>
+        <td class="result border-right">
+          {{ jhcs?.shippingDescription || "empty" }}
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="2" class="result-label-left">Technical Name:</td>
+        <td class="result border-right">{{ jhcs?.techName || "empty" }}</td>
+      </tr>
+
+      <tr>
+        <td colspan="2" class="result-label-left">Proper Shipping Name:</td>
+        <td class="result border-right">{{ jhcs?.propShipName || "empty" }}</td>
+
+        <td colspan="2" class="result-label-left">
+          Inhabited Building Distance:
+        </td>
+        <td class="result">{{ jhcs?.inhabitedBldgDistance || "empty" }}</td>
+      </tr>
+
+      <tr>
+        <td colspan="2" class="result-label-left">
+          DOT Reference (EX) Number:
+        </td>
+        <td class="result border-right">{{ jhcs?.dotno }}</td>
+      </tr>
+
+      <tr min-role="hc">
+        <td colspan="2" class="result-label-left">DOT Expiration Date:</td>
+        <td class="result border-right">
+          {{ jhcs?.dotLetterExpDate || "empty" }}
+        </td>
+      </tr>
+
+      <tr min-role="hc">
+        <td colspan="2" class="result-label-left">DOT Letter File Date:</td>
+        <td class="result border-right">{{ jhcs?.dotFileDate || "empty" }}</td>
+
+        <td colspan="2" class="result-label-left">DOT Tracking Number:</td>
+        <td class="result">{{ jhcs?.dotTrackingNumber || "empty" }}</td>
+      </tr>
+
+      <tr>
+        <td colspan="2" class="result-label-left">Tri-Service Coordination:</td>
+        <td class="result border-right">
+          {{ getTriServiceCoordinationName(jhcs?.triSvrCoord) }}
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="2" class="result-label-left" min-role="hc">Action:</td>
+        <td class="result border-right" min-role="hc">
+          {{ getActionName(jhcs?.actionType) }}
+        </td>
+
+        <td colspan="2" class="result-label-left" min-role="logistics">
+          Method Of Classification:
+        </td>
+        <td class="result" min-role="logistics">Analogy</td>
+      </tr>
+
+      <tr>
+        <td colspan="2" class="result-label-left">UN Number:</td>
+        <td class="result border-right">{{ jhcs?.unoSerNo || "empty" }}</td>
+      </tr>
+
+      <tr>
+        <td colspan="2" class="result-label-left">Hazard Class:</td>
+        <td class="result border-right">{{ jhcs?.dodHc || "empty" }}</td>
+
+        <td colspan="2" class="result-label-left">Compatibility Group:</td>
+        <td class="result">{{ jhcs?.cg || "empty" }}</td>
+      </tr>
+
+      <tr>
+        <td colspan="2" class="result-label-left">AF Hazard Symbol:</td>
+        <td class="result border-right">
+          {{ jhcs?.afHazardSymbol || "empty" }}
+        </td>
+
+        <td colspan="2" class="result-label-left" min-role="hc">AF File No:</td>
+        <td class="result" min-role="hc">{{ jhcs?.armyFileNo || "empty" }}</td>
+      </tr>
+
+      <tr>
+        <td colspan="2" class="result-label-left">DOD Component:</td>
+        <td class="result border-right">
+          {{ getDodComponentName(jhcs?.dodComp) }}
+        </td>
+
+        <td colspan="2" class="result-label-left" min-role="hc">
+          Army File No:
+        </td>
+        <td class="result" min-role="hc">{{ jhcs?.armyFileNo || "empty" }}</td>
+      </tr>
+
+      <tr min-role="hc">
+        <td colspan="2" class="result-label-left">Date Last Modified:</td>
+        <td class="result border-right">{{ jhcs?.dateLastChanged }}</td>
+
+        <td colspan="2" class="result-label-left">Navy File No:</td>
+        <td class="result">{{ jhcs?.navyFileNo || "empty" }}</td>
+      </tr>
+
+      <tr min-role="hc">
+        <td colspan="2" class="result-label-left">Air Force Approval Date:</td>
+        <td class="result border-right">empty</td>
+
+        <td colspan="2" class="result-label-left">Navy Approval Date:</td>
+        <td class="result">{{ jhcs?.navydate || "empty" }}</td>
+      </tr>
+
+      <tr min-role="hc">
+        <td colspan="2" class="result-label-left">Army Approval Date:</td>
+        <td class="result border-right">{{ jhcs?.armydate || "empty" }}</td>
+
+        <td colspan="2" class="result-label-left">DDESB Approval Date:</td>
+        <td class="result">{{ jhcs?.fhc }}</td>
+      </tr>
+
+      <tr>
+        <!-- <td colspan="2" class="result-label-left ng-hide">Sensitivity Group:</td>
+        <td class="result border-right ng-hide">SG5D: Sympathetic Detonation Sensitive / Undetermined</td> -->
+
+        <td colspan="2" class="result-label-left">Group Name:</td>
+        <td class="result border-right">{{ jhcs?.jhcsGroupName || "empty" }}</td>
+      </tr>
+
+      <tr>
+        <td colspan="2" class="result-label-left">Shipping Label One:</td>
+        <td class="result border-right">{{ jhcs?.label1 || "empty" }}</td>
+
+        <td colspan="2" class="result-label-left">Shipping Label Two:</td>
+        <td class="result">{{ jhcs?.label2 || "empty" }}</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="result-label-left">Shipping Label Three:</td>
+        <td class="result border-right">{{ jhcs?.label3 || "empty" }}</td>
+        <td colspan="2" class="result-label-left"></td>
+      </tr>
+      <tr ng-show="showResultsCheck(jhcs?.partOrDwg1) || showResultsCheck(jhcs?.partOrDwg2)">
+        <td colspan="2" class="result-label-left" ng-show="showResultsCheck(jhcs?.partOrDwg1)">
+          Part Number/Drawing One:
+        </td>
+        <td class="result border-right" ng-show="showResultsCheck(jhcs?.partOrDwg1)">
+          {{ jhcs?.partOrDwg1 }}
+        </td>
+
+        <td colspan="2" class="result-label-left" ng-show="showResultsCheck(jhcs?.partOrDwg2)">
+          Part Number/Drawing Two:
+        </td>
+        <td class="result" ng-show="showResultsCheck(jhcs?.partOrDwg2)">
+          {{ jhcs?.partOrDwg2 }}
+        </td>
+      </tr>
+
+      <tr ng-show="
+      showResultsCheck(jhcs?.partOrDwg3) ||
+      showResultsCheck(jhcs?.partOrDwg4)
+    ">
+        <td colspan="2" class="result-label-left" ng-show="showResultsCheck(jhcs?.partOrDwg3)">
+          Part Number/Drawing Three:
+        </td>
+        <td class="result border-right" ng-show="showResultsCheck(jhcs?.partOrDwg3)">
+          {{ jhcs?.partOrDwg3 }}
+        </td>
+        <td colspan="2" class="result-label-left" ng-show="showResultsCheck(jhcs?.partOrDwg4)">
+          Part Number/Drawing Four:
+        </td>
+        <td class="result" ng-show="showResultsCheck(jhcs?.partOrDwg4)">
+          {{ jhcs?.partOrDwg4 }}
+        </td>
+      </tr>
+
+      <tr ng-show="
+      showResultsCheck(jhcs?.partOrDwg5) ||
+      showResultsCheck(jhcs?.partOrDwg6)
+    ">
+        <td colspan="2" class="result-label-left" ng-show="showResultsCheck(jhcs?.partOrDwg5)">
+          Part Number/Drawing Five:
+        </td>
+        <td class="result border-right" ng-show="showResultsCheck(jhcs?.partOrDwg5)">
+          {{ jhcs?.partOrDwg5 }}
+        </td>
+        <td colspan="2" class="result-label-left" ng-show="showResultsCheck(jhcs?.partOrDwg6)">
+          Part Number/Drawing Six:
+        </td>
+        <td class="result" ng-show="showResultsCheck(jhcs?.partOrDwg6)">
+          {{ jhcs?.partOrDwg6 }}
+        </td>
+      </tr>
+
+      <tr ng-show="
+      showResultsCheck(jhcs?.partOrDwg7) ||
+      showResultsCheck(jhcs?.partOrDwg8)
+    ">
+        <td colspan="2" class="result-label-left" ng-show="showResultsCheck(jhcs?.partOrDwg7)">
+          Part Number/Drawing Seven:
+        </td>
+        <td class="result border-right" ng-show="showResultsCheck(jhcs?.partOrDwg7)">
+          {{ jhcs?.partOrDwg7 }}
+        </td>
+        <td colspan="2" class="result-label-left" ng-show="showResultsCheck(jhcs?.partOrDwg8)">
+          Part Number/Drawing Eight:
+        </td>
+        <td class="result" ng-show="showResultsCheck(jhcs?.partOrDwg8)">
+          {{ jhcs?.partOrDwg8 }}
+        </td>
+      </tr>
+
+      <tr ng-show="
+      showResultsCheck(jhcs?.partOrDwg9) ||
+      showResultsCheck(jhcs?.partOrDwg10)
+    ">
+        <td colspan="2" class="result-label-left" ng-show="showResultsCheck(jhcs?.partOrDwg9)">
+          Part Number/Drawing Nine:
+        </td>
+        <td class="result border-right" ng-show="showResultsCheck(jhcs?.partOrDwg9)">
+          {{ jhcs?.partOrDwg9 }}
+        </td>
+        <td colspan="2" class="result-label-left" ng-show="showResultsCheck(jhcs?.partOrDwg10)">
+          Part Number/Drawing Ten:
+        </td>
+        <td class="result" ng-show="showResultsCheck(jhcs?.partOrDwg10)">
+          {{ jhcs?.partOrDwg10 }}
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="2" class="result-label-left">Net Explosive Wt - lbs:</td>
+        <td class="result border-right">{{ jhcs?.newLbs }}</td>
+        <td colspan="2" class="result-label-left">Net Explosive Wt - kgs:</td>
+        <td class="result">{{ jhcs?.newKgs }}</td>
+      </tr>
+
+      <tr>
+        <td colspan="2" class="result-label-left">
+          Net Explosive QD Wt - lbs:
+        </td>
+        <td class="result border-right">{{ jhcs?.newqdLbs }}</td>
+        <td colspan="2" class="result-label-left">
+          Net Explosive QD Wt - kgs:
+        </td>
+        <td class="result">{{ jhcs?.newqdKgs }}</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="result-label-left">
+          Explosive Max Credible Event Wt - lbs:
+        </td>
+        <td class="result border-right">{{ jhcs?.mceLbs }}</td>
+        <td colspan="2" class="result-label-left">
+          Explosive Max Credible Event Wt - kgs:
+        </td>
+        <td class="result">{{ jhcs?.mceKgs }}</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="result-label-left" min-role="logistics">
+          High Explosive Wt - lbs:
+        </td>
+        <td class="result border-right" min-role="logistics">
+          {{ jhcs?.hewLbs }}
+        </td>
+        <td colspan="2" class="result-label-left" min-role="logistics">
+          High Explosive Wt - kgs:
+        </td>
+        <td class="result" min-role="logistics">{{ jhcs?.hewKgs }}</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="result-label-left" min-role="logistics">
+          Net Propellant Wt - lbs:
+        </td>
+        <td class="result border-right" min-role="logistics">
+          {{ jhcs?.npwLbs }}
+        </td>
+        <td colspan="2" class="result-label-left" min-role="logistics">
+          Net Propellant Wt - kgs:
+        </td>
+        <td class="result" min-role="logistics">{{ jhcs?.npwKgs }}</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="result-label-left" min-role="logistics">
+          Pyro Wt - lbs:
+        </td>
+        <td class="result border-right" min-role="logistics">
+          {{ jhcs?.pyroLbs }}
+        </td>
+        <td colspan="2" class="result-label-left" min-role="logistics">
+          Pyro Wt - kgs:
+        </td>
+        <td class="result" min-role="logistics">{{ jhcs?.pyroKgs }}</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="result-label-left" min-role="logistics">
+          Applicable HC Content Wt - lbs:
+        </td>
+        <td class="result border-right" min-role="logistics">
+          {{ jhcs?.ahecLbs }}
+        </td>
+        <td colspan="2" class="result-label-left" min-role="logistics">
+          Applicable HC Content Wt - kgs:
+        </td>
+        <td class="result" min-role="logistics">{{ jhcs?.ahecKgs }}</td>
+      </tr>
+
+      <tr>
+        <td colspan="2" class="result-label-left padded-row">Remarks:</td>
+        <td colspan="5" class="result padded-row">{{ jhcs?.adminRemarks }}</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="result-label-left padded-row" min-role="logistics">
+          Administrative Comments:
+        </td>
+        <td colspan="5" class="result padded-row" min-role="logistics">
+          {{ jhcs?.adminComments }}
+        </td>
+      </tr>
+      <tr>
+        <td colspan="6" class="text-center">
+          --End of Record {{ jhcs?.id }}--
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

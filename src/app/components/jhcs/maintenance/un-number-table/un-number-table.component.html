@@ -1,0 +1,264 @@
+<div class="table-container">
+  <div class="padding-bottom" fxLayout="row" fxLayoutAlign="center center">
+    <h1 class="">UN Number Maintenance</h1>
+  </div>
+  <mat-form-field class="search-field" appearance="outline">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Input keyword" #input>
+    <mat-icon matPrefix>manage_search</mat-icon>
+  </mat-form-field>
+
+  <div class="button-padding-bottom" fxLayout="row" fxLayoutAlign="end center">
+    <button mat-raised-button class="button-blue" type="button" (click)="addRow()">
+      <mat-icon class="icon-white">add</mat-icon>
+    </button>
+  </div>
+
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <!-- UN number Column -->
+    <ng-container matColumnDef="unNumber">
+      <th *matHeaderCellDef mat-sort-header mat-header-cell [resizeColumn]="true" [index]="0"> UN number </th>
+      <td mat-cell *matCellDef="let row">
+        <div *ngIf="!row.isNewData ;else edit_input">
+          {{row.unNumber}}
+        </div>
+        <ng-template #edit_input>
+          <mat-form-field floatLabel="never">
+            <input matInput placeholder="UN Number" [value]="row.unNumber">
+          </mat-form-field>
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Proper Shipping Name Column -->
+    <ng-container matColumnDef="properShippingName">
+      <th mat-sort-header mat-header-cell *matHeaderCellDef [resizeColumn]="true" [index]="1"> Proper Shipping Name </th>
+      <td mat-cell *matCellDef="let row">
+        <div *ngIf="!row.isEditable ;else edit_input_shippingName">
+          {{row.properShippingName}}
+        </div>
+        <ng-template #edit_input_shippingName>
+          <mat-form-field floatLabel="never">
+            <input matInput placeholder="Proper Shipping Name" [value]="row.properShippingName">
+          </mat-form-field>
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Hazard Class Column -->
+    <ng-container matColumnDef="hazardClass">
+      <th mat-sort-header mat-header-cell *matHeaderCellDef > Hazard <br> Class </th>
+      <td mat-cell *matCellDef="let row">
+        <div *ngIf="!row.isEditable ;else edit_input_haz">
+          {{row.hazardClass}}
+        </div>
+        <ng-template #edit_input_haz>
+          <mat-form-field floatLabel="never">
+            <mat-select [(value)]="row.hazardClass" placeholder="Hazard Class">
+              <mat-option>None</mat-option>
+              <mat-option value="DE">DE</mat-option>
+              <mat-option value="E">E</mat-option>
+              <mat-option value="C">C</mat-option>
+              <mat-option value="A">A</mat-option>
+              <mat-option value="B">B</mat-option>
+              <mat-option value="SEAL">SEAL</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Hazard Division Column -->
+    <ng-container matColumnDef="hazardDivision">
+      <th mat-sort-header mat-header-cell *matHeaderCellDef > Hazard <br> Division </th>
+      <td mat-cell *matCellDef="let row">
+        <div >
+          {{row.hazardDivision}}
+        </div>
+      </td>
+    </ng-container>
+
+    <!-- Compatibility Group Column -->
+    <ng-container matColumnDef="compatibilityGroup">
+      <th mat-sort-header mat-header-cell *matHeaderCellDef > Compatibility Group </th>
+      <td mat-cell *matCellDef="let row">
+        <div *ngIf="!row.isEditable ;else edit_input_comp">
+          {{row.compatibilityGroup}}
+        </div>
+        <ng-template #edit_input_comp>
+          <mat-form-field floatLabel="never">
+            <mat-select [(value)]="row.compatibilityGroup" placeholder="Compatibility Group">
+              <mat-option>None</mat-option>
+              <mat-option value="A">A</mat-option>
+              <mat-option value="B">B</mat-option>
+              <mat-option value="C">C</mat-option>
+              <mat-option value="D">D</mat-option>
+              <mat-option value="E">E</mat-option>
+              <mat-option value="F">F</mat-option>
+              <mat-option value="G">G</mat-option>
+              <mat-option value="H">H</mat-option>
+              <mat-option value="I">I</mat-option>
+              <mat-option value="J">J</mat-option>
+              <mat-option value="K">K</mat-option>
+              <mat-option value="L">L</mat-option>
+              <mat-option value="M">M</mat-option>
+              <mat-option value="O">O</mat-option>
+              <mat-option value="P">P</mat-option>
+              <mat-option value="Q">Q</mat-option>
+              <mat-option value="R">R</mat-option>
+              <mat-option value="T">T</mat-option>
+              <mat-option value="U">U</mat-option>
+              <mat-option value="V">V</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Subsidiary Column -->
+    <ng-container matColumnDef="subsidiary">
+      <th mat-sort-header mat-header-cell *matHeaderCellDef > Subsidiary </th>
+      <td mat-cell *matCellDef="let row">
+        <div *ngIf="!row.isEditable ;else edit_input_sub">
+          {{row.subsidiary}}
+        </div>
+        <ng-template #edit_input_sub>
+          <mat-form-field floatLabel="never">
+            <input matInput placeholder="Subsidiary" [value]="row.subsidiary">
+          </mat-form-field>
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Packing Required Column -->
+    <ng-container matColumnDef="packageRequired">
+      <th mat-sort-header mat-header-cell *matHeaderCellDef > Package Required </th>
+      <td mat-cell *matCellDef="let row">
+        <div *ngIf="!row.isEditable ;else edit_input_pack_req">
+          {{row.packageRequired}}
+        </div>
+        <ng-template #edit_input_pack_req>
+          <mat-form-field floatLabel="never">
+            <input matInput placeholder="Package Required" [value]="row.packageRequired">
+          </mat-form-field>
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Packing Group Column -->
+    <ng-container matColumnDef="packingGroup">
+      <th mat-sort-header mat-header-cell *matHeaderCellDef > Packing Group </th>
+      <td mat-cell *matCellDef="let row">
+        <div *ngIf="!row.isEditable ;else edit_input_pack_group">
+          {{row.packingGroup}}
+        </div>
+        <ng-template #edit_input_pack_group>
+          <mat-form-field floatLabel="never">
+            <mat-select [(value)]="row.packingGroup" placeholder="Packing Group">
+              <mat-option>None</mat-option>
+              <mat-option value="I">I</mat-option>
+              <mat-option value="II">II</mat-option>
+              <mat-option value="III">III</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Shipping Label One Column -->
+    <ng-container matColumnDef="shippingLabelOne">
+      <th mat-sort-header mat-header-cell *matHeaderCellDef > Shipping Label One </th>
+      <td mat-cell *matCellDef="let row">
+        <div *ngIf="!row.isEditable ;else edit_input_ship">
+          {{row.shippingLabelOne}}
+        </div>
+        <ng-template #edit_input_ship>
+          <mat-form-field floatLabel="never">
+            <mat-select [(value)]="row.shippingLabelOne" placeholder="Shipping Label One">
+              <mat-option>None</mat-option>
+              <mat-option value="EXPLO 1.1">EXPLOSIVE 1.1</mat-option>
+              <mat-option value="EXPLO 1.2">EXPLOSIVE 1.2</mat-option>
+              <mat-option value="EXPLO 1.3">EXPLOSIVE 1.3</mat-option>
+              <mat-option value="EXPLO 1.4">EXPLOSIVE 1.4</mat-option>
+              <mat-option value="Class 9">Class 9</mat-option>
+              <mat-option value="POISON">POISON</mat-option>
+              <mat-option value="CORROSIVE">CORROSIVE</mat-option>
+              <mat-option value="NONE">NONE</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Shipping Label Two Column -->
+    <ng-container matColumnDef="shippingLabelTwo">
+      <th mat-sort-header mat-header-cell *matHeaderCellDef > Shipping Label Two </th>
+      <td mat-cell *matCellDef="let row">
+        <div *ngIf="!row.isEditable ;else edit_input_ship_two">
+          {{row.shippingLabelTwo}}
+        </div>
+        <ng-template #edit_input_ship_two>
+          <mat-form-field floatLabel="never">
+            <mat-select [(value)]="row.shippingLabelTwo" placeholder="Shipping Label Two">
+              <mat-option>None</mat-option>
+              <mat-option value="EXPLO 1.1">EXPLOSIVE 1.1</mat-option>
+              <mat-option value="EXPLO 1.2">EXPLOSIVE 1.2</mat-option>
+              <mat-option value="EXPLO 1.3">EXPLOSIVE 1.3</mat-option>
+              <mat-option value="EXPLO 1.4">EXPLOSIVE 1.4</mat-option>
+              <mat-option value="Class 9">Class 9</mat-option>
+              <mat-option value="POISON">POISON</mat-option>
+              <mat-option value="CORROSIVE">CORROSIVE</mat-option>
+              <mat-option value="NONE">NONE</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Shipping Label Three Column -->
+    <ng-container matColumnDef="shippingLabelThree">
+      <th mat-sort-header mat-header-cell *matHeaderCellDef> Shipping Label Three </th>
+      <td mat-cell *matCellDef="let row">
+        <div *ngIf="!row.isEditable ;else edit_input_ship_three">
+          {{row.shippingLabelThree}}
+        </div>
+        <ng-template #edit_input_ship_three>
+          <mat-form-field floatLabel="never">
+            <mat-select [(value)]="row.shippingLabelThree" placeholder="Shipping Label Three">
+              <mat-option>None</mat-option>
+              <mat-option value="EXPLO 1.1">EXPLOSIVE 1.1</mat-option>
+              <mat-option value="EXPLO 1.2">EXPLOSIVE 1.2</mat-option>
+              <mat-option value="EXPLO 1.3">EXPLOSIVE 1.3</mat-option>
+              <mat-option value="EXPLO 1.4">EXPLOSIVE 1.4</mat-option>
+              <mat-option value="Class 9">Class 9</mat-option>
+              <mat-option value="POISON">POISON</mat-option>
+              <mat-option value="CORROSIVE">CORROSIVE</mat-option>
+              <mat-option value="NONE">NONE</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ng-template>
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="action">
+      <th mat-sort-header mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let row">
+        <div  fxLayout="row">
+          <button mat-icon-button color="primary" (click)="editCode(row)" title="Edit Code" fxFlex><mat-icon>{{ !row.isEditable ? 'edit' : 'done' }}</mat-icon></button>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+</div>

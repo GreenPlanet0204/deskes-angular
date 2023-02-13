@@ -1,0 +1,16 @@
+<div class="sidenav_container" (mouseenter)="onSinenavToggle()" (mouseleave)="onSinenavToggle()"
+     [@onSideNavChange]="sideNavState ? 'open' : 'close'">
+  <div fxLayout="column" fxLayoutGap="10px" style="height: 100%;">
+    <mat-divider></mat-divider>
+    <div>
+      <mat-nav-list>
+        <a mat-list-item *ngFor="let page of pages" [disabled]="disableLink(page)">
+            <mat-icon style="padding-right:5px;" (click)="redirectTo(page.link)">{{page.icon}}</mat-icon>
+            <span class="menu-item" (click)="redirectTo(page.link)" [@animateText]="linkText ? 'show' : 'hide'">{{ page.name }} </span>
+        </a>
+      </mat-nav-list>
+    </div>
+  </div>
+
+  <span class="spacer"></span>
+</div>

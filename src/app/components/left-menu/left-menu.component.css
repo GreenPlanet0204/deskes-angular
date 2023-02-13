@@ -1,0 +1,21 @@
+.sidenav_container {
+  min-width: 60px;
+  height: calc(100vh - 200px);
+}
+
+.mat-icon{
+  color: #505db2;
+}
+
+.menu-item {
+  font-size: smaller;
+  font-weight: 500;
+}
+
+.mat-menu-item {
+  /*padding: 0 14px;*/
+}
+
+.center {
+  text-align: center;
+}

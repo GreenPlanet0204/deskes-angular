@@ -1,0 +1,145 @@
+.mat-table {
+  width: 100%;
+  overflow-x: scroll;
+  display: block;
+}
+
+.mat-row,
+.mat-header-row {
+    display: table-row;
+}
+
+.mat-cell > span {
+  display: block; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mat-header-cell {
+  position: relative;
+}
+
+.mat-header-cell:not(:last-child) > .resize-holder {
+  cursor: col-resize;
+  width: 20px;
+  height: 100%;
+  position: absolute;
+  right: -10px;
+  top: 0;
+  z-index: 1;
+}
+
+.mat-cell,
+.mat-header-cell {
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
+  /* word-wrap: initial;
+  display: table-cell;
+  padding: 0px 5px;
+  white-space: nowrap;
+  overflow: hidden; */
+}
+
+.mat-cell:not(:nth-child(1)) {
+  padding: 0 10px;
+}
+
+.mat-header-cell:not(:nth-child(1)) {
+  padding: 0 10px;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 85%;
+}
+
+.resizing {
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: col-resize;
+}
+
+.mat-icon{
+  color: #505db2;
+}
+
+.table-container {
+  position: relative;
+  max-width: 70rem;
+  margin: 5rem auto;
+  background: #ffffff;
+  width: 100%;
+  padding: 1rem 3rem 0;
+  border-radius: 1px;
+}
+.table-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+  -webkit-transform: scale(0.98);
+  transform: scale(0.98);
+  -webkit-transition: -webkit-transform 0.28s ease-in-out;
+  transition: -webkit-transform 0.28s ease-in-out;
+  transition: transform 0.28s ease-in-out;
+  transition: transform 0.28s ease-in-out, -webkit-transform 0.28s ease-in-out;
+  z-index: -1;
+}
+.table-container:hover::before {
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+
+
+
+/*.mat-row:hover {*/
+/*  background-color: #004ba0;*/
+/*}*/
+
+/*.mat-row:hover  .mat-icon{*/
+/*  color: white;*/
+/*}*/
+
+/*.mat-row:hover > .mat-cell {*/
+/*  color:  white;*/
+/*}*/
+
+.mat-header-cell {
+  background: #505db2;
+  color:  white;
+}
+
+.mat-sort-header-arrow {
+  color: #ffffff !important;
+  /*opacity: 1 !important;*/
+}
+
+::ng-deep .mat-sort-header-arrow {
+  color: #ffffff;
+}
+
+.padding-bottom{
+  padding-bottom: 20px;
+}
+
+.button-padding-bottom {
+  padding-bottom: 20px;
+}
+
+.button-blue {
+  background-color: #505db2;
+}
+
+.icon-white {
+  color: #ffffff;
+}
+
+.search-field{
+  width: 100% !important;
+}
+
+
+

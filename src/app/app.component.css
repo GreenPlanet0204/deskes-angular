@@ -1,0 +1,16 @@
+.center {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.main-container {
+  /*padding: 20px;*/
+  min-width: 1000px !important;
+  align-items: center;
+  overflow: hidden !important;
+  font-size: small !important;
+  height: fit-content;
+}
